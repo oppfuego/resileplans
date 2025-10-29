@@ -32,11 +32,12 @@ export const footerContent = {
             links: [
                 {label: "About Us", href: "/about-us"},
                 {label: "Get Started", href: "/get-started"},
-                {label: "Pricing", href: "/pricing"},
-                {label: "Faq", href: "/faq"},
-                {label: "Get Started", href: "/get-started"},
+                {label: "Success Stories", href: "/success"},
+                {label: "Resources", href: "/resources"},
+                {label: "Plans", href: "/pricing"},
                 {label: "Contact Us", href: "/contact-us"},
-            ],
+                {label: "Faq", href: "/faq"},
+            ]
         },
         {
             title: "Legal",

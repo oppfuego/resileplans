@@ -66,26 +66,23 @@ const Footer: React.FC = () => {
 
     const LegalBlock = () =>
         legal ? (
-            <div className={styles["footer__legal"]}>
+            <div className={styles["footer__payments"]}>
                 <div className={styles["footer__legal-line"]}>
                     <span className={styles["footer__legal-label"]}>Company:</span>{" "}
                     <strong>{legal.companyName}</strong>
                 </div>
                 {legal.companyNumber && (
                     <div className={styles["footer__legal-line"]}>
-                        <span className={styles["footer__legal-label"]}>Company number:</span>{" "}
                         <span>{legal.companyNumber}</span>
                     </div>
                 )}
                 {contact.email && (
                     <div className={styles["footer__contact-item"]}>
-                        <strong>Email: </strong>
                         <a href={`mailto:${contact.email}`}>{contact.email}</a>
                     </div>
                 )}
                 {contact.phone && (
                     <div className={styles["footer__contact-item"]}>
-                        <strong>Phone: </strong>
                         <a href={`tel:${contact.phone}`}>{contact.phone}</a>
                     </div>
                 )}
@@ -158,16 +155,7 @@ const Footer: React.FC = () => {
         >
             {footerStyles.type === "columns" && (
                 <div className={styles["footer__inner"]}>
-                    <SmartLink href={logo.href} className={styles["footer__logo"]} ariaLabel="Logo">
-                        <Image
-                            src={logo.src}
-                            alt={logo.alt}
-                            width={0}
-                            height={0}
-                            sizes="120px"
-                            style={{ width: "var(--footer-logo-w)", height: "var(--footer-logo-h)" }}
-                        />
-                    </SmartLink>
+
 
                     <div className={styles["footer__columns"]}>
                         {columns.map((col) => (
