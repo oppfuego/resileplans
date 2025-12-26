@@ -138,15 +138,13 @@ export type ValuesIconsBlock = {
     type: "custom";
     component: "ValuesIcons";
     title?: string;
-    description?: string; // ✅ тепер можна передавати опис секції
+    description?: string;
     values: {
-        icon: string;
         title: string;
         text?: string;
-        description?: string; // ✅ дозволяємо description для item
+        description?: string;
     }[];
 };
-
 
 export type StoryTimelineBlock = {
     type: "custom";

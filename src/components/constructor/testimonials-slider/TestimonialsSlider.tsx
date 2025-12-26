@@ -54,72 +54,71 @@ export default function TestimonialsSlider({ title, description, testimonials }:
 
     return (
         <section className={styles.section}>
-            {title && <h2 className={styles.title}>{title}</h2>}
-            {description && <p className={styles.description}>{description}</p>}
+            <div className={styles.header}>
+                {title && <h2 className={styles.title}>{title}</h2>}
+                {description && <p className={styles.description}>{description}</p>}
+            </div>
 
             <div className={styles.sliderWrapper}>
-                <button className={`${styles.navButton} ${styles.left}`} onClick={prevSlide}>
-                    <MdChevronLeft size={28} />
+                <button className={`${styles.nav} ${styles.left}`} onClick={prevSlide}>
+                    <MdChevronLeft size={22} />
                 </button>
 
                 <div className={styles.slider}>
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={currentIndex}
-                            className={styles.card}
-                            initial={{ opacity: 0, x: 80 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -80 }}
-                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                            className={styles.statement}
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -24 }}
+                            transition={{ duration: 0.45 }}
                         >
-                            {/* 🖼️ Фото */}
-                            {srcValue && (
-                                <motion.img
-                                    key={srcValue}
-                                    src={srcValue}
-                                    alt={current.name}
-                                    className={styles.avatar}
-                                    initial={{ scale: 0.9, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ duration: 0.4 }}
-                                />
-                            )}
+                            {/* Quote */}
+                            <blockquote className={styles.quote}>
+                                {current.text}
+                            </blockquote>
 
-                            {/* 💬 Текст */}
-                            <p className={styles.text}>“{current.text}”</p>
+                            {/* Meta */}
+                            <div className={styles.meta}>
+                                {srcValue && (
+                                    <img
+                                        src={srcValue}
+                                        alt={current.name}
+                                        className={styles.avatar}
+                                    />
+                                )}
 
-                            <div className={styles.footer}>
-                                <div className={styles.info}>
-                                    <h4 className={styles.name}>{current.name}</h4>
-                                    {current.role && <p className={styles.role}>{current.role}</p>}
-                                </div>
-
-                                {/* ⭐ Рейтинг */}
-                                <div className={styles.stars}>
-                                    {Array.from({ length: 5 }).map((_, idx) =>
-                                        idx < (current.rating ?? 5) ? (
-                                            <MdStar key={idx} className={styles.starFilled} />
-                                        ) : (
-                                            <MdStarBorder key={idx} className={styles.starEmpty} />
-                                        )
+                                <div className={styles.person}>
+                                    <span className={styles.name}>{current.name}</span>
+                                    {current.role && (
+                                        <span className={styles.role}>{current.role}</span>
                                     )}
                                 </div>
+
+                                {typeof current.rating === "number" && (
+                                    <div className={styles.rating}>
+                                        {Array.from({ length: current.rating }).map((_, i) => (
+                                            <MdStar key={i} />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     </AnimatePresence>
                 </div>
 
-                <button className={`${styles.navButton} ${styles.right}`} onClick={nextSlide}>
-                    <MdChevronRight size={28} />
+                <button className={`${styles.nav} ${styles.right}`} onClick={nextSlide}>
+                    <MdChevronRight size={22} />
                 </button>
             </div>
 
-            <div className={styles.dots}>
+            <div className={styles.progress}>
                 {testimonials.map((_, i) => (
-                    <button
+                    <span
                         key={i}
+                        className={`${styles.line} ${i === currentIndex ? styles.active : ""}`}
                         onClick={() => setCurrentIndex(i)}
-                        className={`${styles.dot} ${i === currentIndex ? styles.active : ""}`}
                     />
                 ))}
             </div>

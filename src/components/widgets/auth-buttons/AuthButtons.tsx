@@ -31,7 +31,7 @@ const AuthButtons: React.FC = () => {
             <Link href="/sign-in">
                 <ButtonUI
                     text="Sign In"
-                    color="primaty"
+                    color="text"
                     shape="default"
                     hoverColor="link"
                     hoverEffect="scale"

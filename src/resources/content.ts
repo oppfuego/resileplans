@@ -15,12 +15,12 @@ export const headerContent = {
     },
     links: [
         {label: "About Us", href: "/about-us"},
-        {label: "Get Started", href: "/get-started"},
-        {label: "Success Stories", href: "/success"},
-        {label: "Resources", href: "/resources"},
+        {label: "How It Works", href: "/get-started"},
         {label: "Plans", href: "/pricing"},
         {label: "Contact Us", href: "/contact-us"},
         {label: "Faq", href: "/faq"},
+        {label: "Success", href: "/success"},
+        {label: "Resources", href: "/resources"},
     ]
 };
 

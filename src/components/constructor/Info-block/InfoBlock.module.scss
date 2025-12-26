@@ -24,7 +24,7 @@
 
   /* 🖼️ Зображення */
   .imageWrapper {
-    width: 100%;
+    width: 70%;
     overflow: hidden;
     border-radius: 12px;
     display: flex;
@@ -57,6 +57,22 @@
     white-space: pre-line;
     margin-bottom: 0.5rem;
   }
+
+  .icon {
+    font-size: 100px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    svg {
+      font-size: 100px;
+      color: var(--color-primary);
+    }
+  }
+
 
   /* ✅ Булети */
   .bullets {

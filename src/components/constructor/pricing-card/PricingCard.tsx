@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import React, {useMemo, useState} from "react";
+import {motion} from "framer-motion";
 import styles from "./PricingCard.module.scss";
 import ButtonUI from "@/components/ui/button/ButtonUI";
-import { useAlert } from "@/context/AlertContext";
-import { useUser } from "@/context/UserContext";
+import {useAlert} from "@/context/AlertContext";
+import {useUser} from "@/context/UserContext";
 import Input from "@mui/joy/Input";
-import { useCurrency } from "@/context/CurrencyContext";
+import {useCurrency} from "@/context/CurrencyContext";
 
 const TOKENS_PER_GBP = 100;
 
@@ -37,9 +37,9 @@ const PricingCard: React.FC<PricingCardProps> = ({
                                                      badgeBottom,
                                                      index = 0,
                                                  }) => {
-    const { showAlert } = useAlert();
+    const {showAlert} = useAlert();
     const user = useUser();
-    const { currency, sign, convertFromGBP, convertToGBP } = useCurrency();
+    const {currency, sign, convertFromGBP, convertToGBP} = useCurrency();
 
     const [customAmount, setCustomAmount] = useState<number>(0.01);
     const isCustom = price === "dynamic";
@@ -73,14 +73,14 @@ const PricingCard: React.FC<PricingCardProps> = ({
                     showAlert("Minimum is 0.01", "Enter at least 0.01 GBP equivalent", "warning");
                     return;
                 }
-                body = { currency, amount: customAmount };
+                body = {currency, amount: customAmount};
             } else {
-                body = { amount: tokens, currency };
+                body = {amount: tokens, currency};
             }
 
             const res = await fetch("/api/user/buy-tokens", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 credentials: "include",
                 body: JSON.stringify(body),
             });
@@ -115,58 +115,70 @@ const PricingCard: React.FC<PricingCardProps> = ({
     return (
         <motion.div
             className={`${styles.card} ${styles[variant]}`}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
+            initial={{opacity: 0, y: 32}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true, amount: 0.2}}
+            transition={{duration: 0.45, delay: index * 0.1}}
         >
-            {badgeTop && <span className={styles.badgeTop}>{badgeTop}</span>}
-            <h3 className={styles.title}>{title}</h3>
+            {badgeTop && <div className={styles.badgeTop}>{badgeTop}</div>}
 
-            {isCustom ? (
-                <>
-                    <div className={styles.inputWrapper}>
-                        <Input
-                            type="number"
-                            value={customAmount}
-                            min={0.01}
-                            step={0.01}
-                            onChange={(e) =>
-                                setCustomAmount(
-                                    e.target.value === "" ? 0.01 : Math.max(0.01, Number(e.target.value))
-                                )
-                            }
-                            placeholder="Enter amount"
-                            size="md"
-                            startDecorator={sign}
-                        />
+            {/* HEADER */}
+            <div className={styles.header}>
+                <div>
+                    <h3 className={styles.title}>{title}</h3>
+                    <span className={styles.subtitle}>{description}</span>
+                </div>
+
+                {!isCustom && (
+                    <div className={styles.priceBox}>
+                <span className={styles.price}>
+                    {sign}{convertedPrice.toFixed(2)}
+                </span>
+                        <span className={styles.tokens}>{tokens} tokens</span>
                     </div>
-                    <p className={styles.dynamicPrice}>
-                        {sign}
-                        {customAmount.toFixed(2)} {currency} ≈ {tokensCalculated} tokens
-                    </p>
-                </>
-            ) : (
-                <p className={styles.price}>
-                    {sign}
-                    {convertedPrice.toFixed(2)}{" "}
-                    <span className={styles.tokens}>/ {tokens} tokens</span>
-                </p>
+                )}
+            </div>
+
+            {/* CUSTOM */}
+            {isCustom && (
+                <div className={styles.customBlock}>
+                    <Input
+                        type="number"
+                        value={customAmount}
+                        min={0.01}
+                        step={0.01}
+                        onChange={(e) =>
+                            setCustomAmount(
+                                e.target.value === "" ? 0.01 : Math.max(0.01, Number(e.target.value))
+                            )
+                        }
+                        startDecorator={sign}
+                    />
+                    <span className={styles.dynamicPrice}>
+                ≈ {tokensCalculated} tokens
+            </span>
+                </div>
             )}
 
-            <p className={styles.description}>{description}</p>
+            {/* FEATURES */}
             <ul className={styles.features}>
                 {features.map((f, i) => (
                     <li key={i}>{f}</li>
                 ))}
             </ul>
 
-            <ButtonUI fullWidth onClick={handleBuy}>
-                {user ? buttonText : "Sign Up to Buy"}
-            </ButtonUI>
+            {/* CTA */}
+            <div className={styles.footer}>
+                <ButtonUI fullWidth onClick={handleBuy}>
+                    {user ? buttonText : "Sign up to continue"}
+                </ButtonUI>
 
-            {badgeBottom && <span className={styles.badgeBottom}>{badgeBottom}</span>}
+                {badgeBottom && (
+                    <span className={styles.badgeBottom}>{badgeBottom}</span>
+                )}
+            </div>
         </motion.div>
+
     );
 };
 

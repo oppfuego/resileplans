@@ -1,331 +1,339 @@
-import { PageSchema } from "@/components/constructor/page-render/types";
-import { COMPANY_NAME } from "@/resources/constants";
+import {PageSchema} from "@/components/constructor/page-render/types";
+import {COMPANY_NAME} from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: `About ${COMPANY_NAME} — Our Mission, Vision & Team`,
-        description: `${COMPANY_NAME} combines human expertise with artificial intelligence to make business planning faster, smarter, and more accessible. Discover our mission, our story, and the people behind the platform.`,
-        keywords: [
-            "about business planning platform",
-            "AI business generator team",
-            "our story",
-            "business plan experts",
-            "startup innovation",
-            "artificial intelligence planning",
-        ],
+        title: `About ${COMPANY_NAME} — Building Smarter Business Planning`,
+        description:
+            `${COMPANY_NAME} combines AI automation with real human expertise to help founders, students, and teams create business plans faster and with confidence.`,
         canonical: "/about-us",
-        ogImage: {
-            title: `${COMPANY_NAME}`,
-            description: "Where expert knowledge meets AI innovation.",
-            bg: "#0a2540",
-            color: "#ffffff",
-        },
     },
 
     blocks: [
-        // 🏁 HERO
+        // 1️⃣ HERO — коротше, сильніше
         {
             type: "custom",
             component: "HeroSection",
-            title: `Building the Future of Business Planning`,
-            highlight: `${COMPANY_NAME}`,
-            description: `${COMPANY_NAME} was founded with a single vision — to make professional business planning accessible to everyone.  
-We blend human intelligence with cutting-edge AI to help founders, students, and professionals turn ideas into structured, investor-ready business plans — in hours, not weeks.`,
-            image: "image7",
-            align: "right",
-            showTrustBadge: true,
+            title: "We build tools",
+            highlight: "people actually trust",
+            description:
+                `${COMPANY_NAME} exists to make business planning clearer, faster, and more accessible — without sacrificing quality or human judgment.`,
+            image: "image17",
+            align: "left"
         },
 
-        // 🧭 OUR STORY
-        {
-            type: "section",
-            title: "Our Story — From Consulting Desks to AI Innovation",
-            description: `Our journey began with a group of business consultants and developers who realized how time-consuming and expensive traditional planning could be.  
-We wanted to change that — to build a tool that saves time, cuts costs, and empowers entrepreneurs to focus on what matters most: execution.`,
-            left: {
-                type: "custom",
-                component: "InfoBlock",
-                title: `The Idea Behind ${COMPANY_NAME}`,
-                description: `${COMPANY_NAME} started as a collaborative project between strategy consultants, startup founders, and software engineers.  
-We saw how many early-stage entrepreneurs were stuck — either paying thousands for expert help or struggling alone with templates.  
-That’s why we created a platform that merges both worlds: expert knowledge + AI automation.`,
-                bullets: [
-                    "Founded by business strategists and AI engineers",
-                    "Created to make planning faster and more transparent",
-                    "Built on data-driven insights and global startup experience",
-                ],
-            },
-            right: {
-                type: "media",
-                mediaType: "image",
-                src: "image2",
-                alt: "Business founders working together",
-            },
-        },
-
-        // 🎯 MISSION
+        // 2️⃣ WHO USES US — рух одразу
         {
             type: "custom",
-            component: "MissionBanner",
-            title: "Our Mission",
-            description: `${COMPANY_NAME} helps anyone with an idea — from students to startups — create a professional business plan with confidence.  
-We merge automation and personalization, ensuring that every plan reflects both market data and your unique vision.`,
-            image: "image10",
+            component: "Marquee",
+            items: [
+                {text: "Startup founders"},
+                {text: "MBA & university students"},
+                {text: "Consultants & advisors"},
+                {text: "Accelerators & incubators"},
+                {text: "Early-stage teams"},
+            ],
         },
 
-        // 🧠 EXPERTISE & AI
-        {
-            type: "section",
-            title: "Where Human Expertise Meets Artificial Intelligence",
-            description: `We believe AI is not a replacement for human intelligence — it’s an extension of it.  
-Our system was built to assist professional analysts, not replace them.`,
-            left: {
-                type: "custom",
-                component: "InfoBlock",
-                image: "image9",
-                title: "Human Insight",
-                description: `Our business experts bring years of experience in finance, strategy, and market analysis.  
-They review every framework and ensure that each AI-generated plan follows real-world logic and investor standards.`,
-                bullets: [
-                    "Verified business analysts & consultants",
-                    "Experience across 15+ industries",
-                    "Specialists in market and competitor research",
-                ],
-            },
-            right: {
-                type: "custom",
-                component: "InfoBlock",
-                image: "image4",
-                title: "AI Precision",
-                description: `Our AI engine automates structure, forecasting, and presentation — saving up to 90% of time usually spent writing and formatting.  
-It adapts tone, language, and metrics to your audience — whether you pitch investors or prepare academic work.`,
-                bullets: [
-                    "Instant generation powered by GPT-based models",
-                    "Dynamic financial projections and visuals",
-                    "Localized content for global markets",
-                ],
-            },
-        },
-
-        // ⚙️ OUR APPROACH
-        {
-            type: "section",
-            title: "Our Approach to AI & Strategy",
-            description: `Every feature inside ${COMPANY_NAME} is built around one simple philosophy:  
-Technology should enhance decision-making, not replace it.  
-Our hybrid model ensures that AI takes care of repetitive tasks, while human professionals set direction and strategy.`,
-            left: {
-                type: "custom",
-                component: "InfoBlock",
-                title: "Balanced Intelligence",
-                description: `We integrate AI-driven analytics with human judgment — producing plans that are both data-backed and contextually sound.`,
-                bullets: [
-                    "AI-driven forecasting with manual validation",
-                    "Scenario planning based on real business cases",
-                    "Continuous feedback from domain experts",
-                ],
-            },
-            right: {
-                type: "media",
-                mediaType: "image",
-                src: "image11",
-                alt: "Balanced AI and human strategy",
-            },
-        },
-
-        // 💎 VALUES
+        // 3️⃣ STORY — не текстом, а таймлайном
         {
             type: "custom",
-            component: "ValuesIcons",
-            title: "Our Core Values",
-            description: `Everything we create is driven by transparency, innovation, and respect for the people who trust us with their ideas.`,
-            values: [
+            component: "Timeline",
+            title: "How we build and evolve the platform",
+            description:
+                `${COMPANY_NAME} was not created overnight. It’s the result of years of consulting experience, product development, and continuous collaboration between humans and AI.`,
+            steps: [
                 {
-                    icon: "🤝",
-                    title: "Openness & Integrity",
-                    text: "We value honesty and clarity — both in how we work and what we deliver.",
+                    title: "Consulting background",
+                    description:
+                        "Before building the platform, our team worked directly with startups, students, and small businesses — writing, reviewing, and validating hundreds of real business plans.",
                 },
                 {
-                    icon: "💡",
-                    title: "Innovation with Purpose",
-                    text: "Technology should empower creativity, not complicate it.",
+                    title: "Identifying the bottleneck",
+                    description:
+                        "We saw that most time was wasted on structure, formatting, and repetitive analysis — not on strategic thinking or decision-making.",
                 },
                 {
-                    icon: "📊",
-                    title: "Data-Driven Precision",
-                    text: "Our forecasts and strategies are based on real market insights.",
+                    title: "Designing a hybrid approach",
+                    description:
+                        "Instead of replacing experts, we built AI tools that assist them — automating routine work while keeping human judgment in control.",
                 },
                 {
-                    icon: "🌍",
-                    title: "Global Accessibility",
-                    text: "We make professional planning available to anyone — anywhere.",
+                    title: "Building the first product",
+                    description:
+                        "Engineers, analysts, and designers collaborated to create a system that produces clear, structured, and editable business plans.",
+                },
+                {
+                    title: "Validation with real users",
+                    description:
+                        "The platform was tested with founders, universities, and consultants to ensure plans meet real-world expectations.",
+                },
+                {
+                    title: "Continuous improvement",
+                    description:
+                        "Today, we continuously improve the platform using feedback, market data, and expert reviews to keep quality high and results practical.",
                 },
             ],
         },
 
-        // 🌎 IMPACT
+
+        // 4️⃣ HUMAN ↔ AI (side by side)
         {
             type: "section",
-            title: "Global Impact & Community",
-            description: `${COMPANY_NAME} supports entrepreneurs in over 40 countries.  
-We collaborate with universities, incubators, and innovation hubs to make professional planning part of every entrepreneurial journey.`,
+            align: "start",
+            gap: "4rem",
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                title: "Educational Partnerships",
-                description: `Our academic integrations help students learn how to transform ideas into validated business models.`,
+                title: "Human expertise",
+                description:
+                    "Real analysts define frameworks, validate assumptions, and ensure plans make sense in the real world.",
                 bullets: [
-                    "Used in 30+ university entrepreneurship courses",
-                    "Partnered with startup accelerators across Europe and Asia",
-                    "Empowering next-generation founders",
+                    "Strategy & finance professionals",
+                    "Cross-industry experience",
+                    "Investor-oriented thinking",
                 ],
             },
             right: {
-                type: "media",
-                mediaType: "image",
-                src: "image8",
-                alt: "Global community of entrepreneurs",
+                type: "custom",
+                component: "InfoBlock",
+                title: "AI automation",
+                description:
+                    "AI handles structure, formatting, projections, and speed — reducing manual work by up to 90%.",
+                bullets: [
+                    "Instant generation",
+                    "Dynamic financial models",
+                    "Multilingual output",
+                ],
             },
         },
 
-        // 📰 PRESS & RECOGNITION
+        // 5️⃣ HOW WE WORK — grid, не секція
         {
-            type: "custom",
-            component: "ValuesIcons",
-            title: "Press & Recognition",
-            description: `Our platform and team have been recognized by top publications and tech events for our innovative approach to combining AI with human creativity.`,
-            values: [
+            type: "grid",
+            columns: 3,
+            gap: "1.5rem",
+            cards: [
                 {
-                    icon: "🏆",
-                    title: "Best AI Startup 2024",
-                    text: "Awarded at the European Innovation Summit for our hybrid AI approach.",
+                    image: "image10",
+                    title: "Structured thinking",
+                    description:
+                        "Every plan follows proven business logic, not random text blocks.",
                 },
                 {
-                    icon: "📰",
-                    title: "Featured in TechRadar & Business Insider",
-                    text: "Praised as one of the most accessible tools for startups and SMEs.",
+                    image: "image11",
+                    title: "Expert validation",
+                    description:
+                        "AI outputs are reviewed against real-world business cases.",
                 },
                 {
-                    icon: "🎤",
-                    title: "Global Tech Speaker",
-                    text: "Invited to discuss AI ethics and automation at global conferences.",
+                    image: "image12",
+                    title: "Fast iteration",
+                    description:
+                        "Users can regenerate, refine, and adapt plans in minutes.",
                 },
             ],
         },
 
-        // 🤝 PARTNERSHIPS
+        // 6️⃣ VALUES — як факти
         {
-            type: "section",
-            title: "Partnerships & Integrations",
-            description: `We believe collaboration drives progress. ${COMPANY_NAME} integrates with the tools that businesses already use, ensuring seamless workflows and unified data.`,
-            left: {
-                type: "custom",
-                component: "InfoBlock",
-                title: "Connected Ecosystem",
-                description: `From financial platforms to productivity suites — we ensure your planning data moves where it’s needed most.`,
-                bullets: [
-                    "Integrations with Zoho, Notion, and Google Workspace",
-                    "Export-ready business summaries for investors",
-                    "API access for enterprise teams",
-                ],
-            },
-            right: {
-                type: "media",
-                mediaType: "image",
-                src: "image12",
-                alt: "API and business integrations illustration",
-            },
+            type: "custom",
+            component: "ValuesIcons",
+            title: "What defines our work",
+            description:
+                "These are not slogans — they shape how the platform is built.",
+            values: [
+                {
+                    title: "Clarity over complexity",
+                    description:
+                        "Business planning should help decisions, not confuse them.",
+                },
+                {
+                    title: "Human control",
+                    description:
+                        "AI supports thinking — it never replaces judgment.",
+                },
+                {
+                    title: "Speed with responsibility",
+                    description:
+                        "Fast results, but never at the cost of logic or accuracy.",
+                },
+                {
+                    title: "Accessibility",
+                    description:
+                        "Professional planning should be available to everyone.",
+                },
+                {
+                    title: "Real-world focus",
+                    description:
+                        "Built for actual use — investors, studies, grants, execution.",
+                },
+                {
+                    title: "Continuous improvement",
+                    description:
+                        "Feedback from users and experts constantly shapes the product.",
+                },
+            ],
         },
 
-        // 🧑‍💼 TEAM
+        // 7️⃣ SOCIAL PROOF INSIDE ABOUT (важливо)
+        {
+            type: "custom",
+            component: "TestimonialsSlider",
+            title: "What Our Clients Say",
+            description: "Feedback from businesses that worked with our team and saw measurable results.",
+            testimonials: [
+                {
+                    name: "Daniel Wright",
+                    role: "Founder, SaaS Startup",
+                    image: "review5",
+                    text: "The planning process was structured and transparent. We finally had numbers and logic investors could actually understand.",
+                    rating: 5,
+                },
+                {
+                    name: "Michael Andersen",
+                    role: "CEO, Logistics Company",
+                    image: "review8",
+                    text: "They approached our case like partners, not vendors. The business plan helped us restructure operations and prepare for negotiations.",
+                    rating: 5,
+                },
+                {
+                    name: "Thomas Keller",
+                    role: "Managing Director, Manufacturing",
+                    image: "review4",
+                    text: "Clear communication, strong financial logic, and realistic assumptions. This was not a template — it was tailored to our business.",
+                    rating: 5,
+                },
+                {
+                    name: "Laura Mitchell",
+                    role: "Marketing Lead, E-commerce Brand",
+                    image: "review7",
+                    text: "The expert explained everything in plain language. I finally understood our margins and growth limits.",
+                    rating: 5,
+                },
+                {
+                    name: "Sophie Laurent",
+                    role: "Co-founder, EdTech Project",
+                    image: "review6",
+                    text: "We used the plan for a grant application. The structure and clarity made a huge difference for reviewers.",
+                    rating: 5,
+                },
+                {
+                    name: "Emily Carter",
+                    role: "Business Consultant",
+                    image: "review9",
+                    text: "I now use their process as a base for my own clients. It saves weeks of work and delivers consistent quality.",
+                    rating: 5,
+                },
+            ],
+        },
+
+        // 8️⃣ TEAM — не в кінці
         {
             type: "custom",
             component: "TeamGrid",
-            title: "The Team Behind the Platform",
-            description: `We’re a multidisciplinary team of business analysts, designers, and developers united by one purpose — to simplify the path from idea to execution.`,
+            title: "The people behind the platform",
+            description:
+                "A team of analysts, engineers, and designers working toward one shared goal.",
             members: [
                 {
-                    name: "Anna Müller",
-                    role: "Head of Strategy",
-                    bio: "Former startup consultant who led over 200 business plan projects before co-founding the AI-planning system.",
-                    image: "team1",
+                    name: "Markus Weber",
+                    role: "Strategy Lead",
+                    bio:
+                        "Former startup consultant with over 200 business plans delivered across multiple industries.",
+                    image: "team4",
                 },
                 {
-                    name: "David Chen",
-                    role: "Lead AI Engineer",
-                    bio: "Machine learning specialist focusing on natural language automation and contextual data generation.",
-                    image: "team2",
+                    name: "Daniel Chen",
+                    role: "AI Engineering Lead",
+                    bio:
+                        "Builds structured generation systems and financial modeling logic for complex business cases.",
+                    image: "team5",
                 },
                 {
-                    name: "Maria Rossi",
-                    role: "Design Director",
-                    bio: `Leads the UI/UX design system for ${COMPANY_NAME}, ensuring clarity and focus for all users.`,
-                    image: "team3",
+                    name: "Elena Rossi",
+                    role: "Product & UX Lead",
+                    bio:
+                        "Designs clarity-first interfaces that make complex business planning easy to understand.",
+                    image: "team6",
                 },
             ],
         },
 
-        // 🚀 FUTURE VISION
+        // 9️⃣ IMPACT
         {
             type: "section",
-            title: "Looking Ahead",
-            description: `${COMPANY_NAME} continues to evolve.  
-Our roadmap includes deeper financial analytics, team collaboration tools, and multilingual business plan generation — making strategic planning easier for a global audience.`,
+            title: "Impact & community",
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                title: "Next Milestones",
-                description: `We’re working on integrations with CRM, market data APIs, and real-time AI advisors — so your business plan becomes a living, adaptive tool.`,
+                title: "Used worldwide",
+                description:
+                    `${COMPANY_NAME} supports founders and students in over 40 countries.`,
                 bullets: [
-                    "Automated investor pitch decks",
-                    "Live performance dashboards",
-                    "Real-time collaboration & editing",
-                    "Integration with Zoho, Notion, and Google Workspace",
+                    "Universities & accelerators",
+                    "Startup ecosystems",
+                    "Independent founders",
+                ],
+            },
+            right: {
+                type: "media",
+                mediaType: "image",
+                src: "image13",
+            },
+        },
+
+        // 🔟 FUTURE — коротко
+        {
+            type: "section",
+            title: "What’s next",
+            left: {
+                type: "custom",
+                component: "InfoBlock",
+                title: "Product roadmap",
+                description:
+                    "We’re building tools that turn plans into living business systems.",
+                bullets: [
+                    "Deeper financial analytics",
+                    "Team collaboration",
+                    "Real-time AI advisors",
                 ],
             },
             right: {
                 type: "media",
                 mediaType: "image",
                 src: "image14",
-                alt: "Future roadmap illustration",
             },
         },
 
-        // 🔚 FINAL CTA
+        // 1️⃣1️⃣ FINAL CTA
         {
             type: "custom",
             component: "MissionBanner",
-            title: "Join the Future of Business Planning",
-            description: `At ${COMPANY_NAME}, we believe that every idea deserves a chance.  
-Whether you’re an entrepreneur, student, or consultant — our mission is to help you plan smarter, faster, and with confidence.`,
+            title: "Join the future of business planning",
+            description:
+                "Whether you’re building, learning, or advising — we’re here to help.",
             image: "image17",
         },
 
-        // ❓ FAQ — Added section
+        // 1️⃣2️⃣ FAQ
         {
             type: "faq",
             items: [
                 {
-                    question: "How does the AI planning process actually work?",
-                    answer: `${COMPANY_NAME} uses advanced GPT-based models trained on thousands of verified business frameworks.  
-You simply describe your idea, choose a goal (pitch, study, or investor plan), and our system generates a professional structure — ready for review or download.`,
+                    question: "Is this platform suitable for beginners?",
+                    answer:
+                        "Yes. The system guides users step by step, even without prior business experience.",
                 },
                 {
-                    question: "Can I combine human expert review with AI generation?",
-                    answer: "Yes. You can generate your plan instantly and then request a professional analyst to review and enhance it within 24 hours for investor-ready quality.",
+                    question: "Do experts really review the frameworks?",
+                    answer:
+                        "Yes. All structures and logic are validated by real professionals.",
                 },
                 {
-                    question: "Is my business idea and data secure?",
-                    answer: "Absolutely. All project data is encrypted and stored on secure servers. ${COMPANY_NAME} never shares your documents or business concepts with third parties.",
-                },
-                {
-                    question: "Who are the experts behind the platform?",
-                    answer: "Our team includes business consultants, economists, and AI engineers with backgrounds in global startups, finance, and data analytics. Each plan template is validated by real experts before use.",
-                },
-                {
-                    question: "How can I collaborate or partner with your team?",
-                    answer: `We’re open to partnerships with universities, accelerators, and tech ecosystems.  
-You can contact us directly via the contact page or email our partnership department at support@${(COMPANY_NAME ?? "company").toLowerCase()}.com.`,
+                    question: "Can this be used in education?",
+                    answer:
+                        "Absolutely. Many universities use the platform in entrepreneurship courses.",
                 },
             ],
         },

@@ -15,7 +15,7 @@ interface ContactFormValues {
     secondName: string;
     email: string;
     phone: string;
-    message?: string;
+    message: string; // ✅ FIX
 }
 
 const ContactForm: React.FC = () => {
@@ -40,87 +40,94 @@ const ContactForm: React.FC = () => {
 
     return (
         <section className={styles.section}>
-            <motion.div
-                className={styles.header}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-            >
-                <h2>Contact Our Team</h2>
-                <p>
-                    Have a question about our plans or need tailored advice?
-                    Our experts typically respond within 24 hours.
-                </p>
-            </motion.div>
+            <div className={styles.container}>
 
-            <div className={styles.grid}>
-                {/* === LEFT SIDE === */}
                 <motion.div
-                    className={styles.infoBlock}
-                    initial={{ opacity: 0, x: -40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
+                    className={styles.header}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
                 >
-                    <h3>Get in touch</h3>
-                    <p className={styles.subtext}>
-                        We’re here to answer your questions and help you find the right solution for your needs.
+                    <h2>Contact & Inquiries</h2>
+                    <p>
+                        Reach out to our team for product questions, partnerships, or tailored solutions.
+                        We typically respond within one business day.
                     </p>
-
-                    <div className={styles.infoItem}>
-                        <FaMapMarkerAlt />
-                        <span>{COMPANY_ADDRESS}</span>
-                    </div>
-                    <div className={styles.infoItem}>
-                        <FaEnvelope />
-                        <a href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a>
-                    </div>
-                    <div className={styles.infoItem}>
-                        <FaPhoneAlt />
-                        <a href={`tel:${COMPANY_PHONE}`}>{COMPANY_PHONE}</a>
-                    </div>
                 </motion.div>
 
-                {/* === RIGHT SIDE === */}
-                <motion.div
-                    className={styles.formBlock}
-                    initial={{ opacity: 0, x: 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    {successMsg ? (
-                        <div className={styles.successMsg}>{successMsg}</div>
-                    ) : (
-                        <Formik<ContactFormValues>
-                            initialValues={initialValues}
-                            validationSchema={validationSchema}
-                            onSubmit={handleSubmit}
-                        >
-                            {({ isSubmitting }) => (
-                                <Form className={styles.form}>
-                                    <div className={styles.row}>
-                                        <Field as="input" name="name" placeholder="First name" />
-                                        <Field as="input" name="secondName" placeholder="Last name" />
-                                    </div>
+                <div className={styles.layout}>
 
-                                    <Field as="input" name="email" type="email" placeholder="Email address" />
+                    <motion.aside
+                        className={styles.context}
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <h3>Company information</h3>
 
-                                    <Field as="input" name="phone" type="tel" placeholder="Phone number" />
+                        <p className={styles.contextText}>
+                            Our team works with clients worldwide, providing professional guidance
+                            and long-term support.
+                        </p>
 
-                                    <Field as="textarea" name="message" placeholder="Your message" rows={5} />
+                        <div className={styles.meta}>
+                            <div className={styles.metaItem}>
+                                <FaMapMarkerAlt />
+                                <span>{COMPANY_ADDRESS}</span>
+                            </div>
 
-                                    <ButtonUI
-                                        type="submit"
-                                        fullWidth
-                                        loading={isSubmitting}
-                                        text="Send Message"
-                                        color="secondary"
-                                        textColor="backgroundLight"
-                                    />
-                                </Form>
-                            )}
-                        </Formik>
-                    )}
-                </motion.div>
+                            <div className={styles.metaItem}>
+                                <FaEnvelope />
+                                <a href={`mailto:${COMPANY_EMAIL}`}>{COMPANY_EMAIL}</a>
+                            </div>
+
+                            <div className={styles.metaItem}>
+                                <FaPhoneAlt />
+                                <a href={`tel:${COMPANY_PHONE}`}>{COMPANY_PHONE}</a>
+                            </div>
+                        </div>
+                    </motion.aside>
+
+                    <motion.div
+                        className={styles.formPanel}
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {successMsg ? (
+                            <div className={styles.successMsg}>{successMsg}</div>
+                        ) : (
+                            <Formik<ContactFormValues>
+                                initialValues={initialValues}
+                                validationSchema={validationSchema}
+                                onSubmit={handleSubmit}
+                            >
+                                {({ isSubmitting }) => (
+                                    <Form className={styles.form}>
+                                        <div className={styles.row}>
+                                            <Field name="name" placeholder="First name" />
+                                            <Field name="secondName" placeholder="Last name" />
+                                        </div>
+
+                                        <Field name="email" type="email" placeholder="Business email" />
+                                        <Field name="phone" type="tel" placeholder="Phone number" />
+                                        <Field as="textarea" name="message" rows={5} placeholder="Describe your request" />
+
+                                        <ButtonUI
+                                            type="submit"
+                                            fullWidth
+                                            loading={isSubmitting}
+                                            text="Submit request"
+                                            color="text"
+                                            textColor="backgroundLight"
+                                        />
+                                    </Form>
+                                )}
+                            </Formik>
+                        )}
+                    </motion.div>
+
+                </div>
             </div>
         </section>
     );

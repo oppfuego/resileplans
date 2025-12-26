@@ -55,16 +55,28 @@ const DrawerMenu: FC<DrawerMenuProps> = ({ open, onClose }) => {
 
                     <AuthButtons />
 
-                        <div className={styles.currencySwitch}>
-                            <select
-                                value={currency}
-                                onChange={(e) => setCurrency(e.target.value)}
-                                className={styles.currencySelect}
-                            >
-                                <option value="GBP">£ GBP</option>
-                                <option value="EUR">€ EUR</option>
-                            </select>
+                    <div className={styles.currencySwitch}>
+                        <div className={styles.toggleTrack}>
+                            <div className={styles.selected}>
+                                {currency}
+                                <span className={styles.chevron} />
+                            </div>
+
+                            <div className={styles.menu}>
+                                {["GBP", "EUR", "USD"].map((c) => (
+                                    <button
+                                        key={c}
+                                        onClick={() => setCurrency(c as "GBP" | "EUR" | "USD")}
+                                        className={`${styles.option} ${
+                                            currency === c ? styles.active : ""
+                                        }`}
+                                    >
+                                        {c}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
+                    </div>
                 </div>
 
                 <nav

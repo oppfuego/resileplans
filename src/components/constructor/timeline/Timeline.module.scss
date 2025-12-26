@@ -1,121 +1,117 @@
 .timelineSection {
   width: 100%;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--background-color);
+}
+
+.head {
+  max-width: 720px;
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.sectionDesc {
+  margin-top: 0.75rem;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
 }
 
 .container {
-  max-width: 1440px;
-  padding: 0 30px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
-  align-items: center;
+  gap: 4rem;
 }
 
-.title {
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--secondary-color);
-  text-align: center;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  margin: 0;
-}
-
-/* 🧱 Сітка кроків */
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  width: 100%;
-}
-
-/* 🗂️ Картка */
-.card {
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 2.2rem 2rem;
+/* ───── Timeline wrapper ───── */
+.timeline {
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  gap: 1.4rem;
-  transition: all 0.3s ease;
-
-  &:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
-    transform: translateY(-3px);
-  }
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-left: 36px;
 }
 
-/* 🔢 Номер етапу */
-.number {
-  flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+/* Vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-color);
+}
+
+/* ───── Item ───── */
+.timelineItem {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  column-gap: 2rem;
+  align-items: flex-start;
+}
+
+/* ───── Marker ───── */
+.marker {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
+  background: var(--background-color);
   border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  font-size: 1.1rem;
-  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* 📄 Текст усередині */
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.cardTitle {
-  font-weight: 500;
-  font-size: 1.2rem;
-  color: var(--secondary-color);
-  margin: 0;
-  line-height: 1.4;
-}
-
-.cardDescription {
-  font-size: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--text-secondary);
-  line-height: 1.65;
+  z-index: 1;
+}
+
+/* ───── Card ───── */
+.card {
+  background: var(--surface-color);
+  padding: 1.75rem 2rem;
+  border: 1px solid var(--border-color);
+  transition: border-color 0.25s ease;
+}
+
+.card:hover {
+  border-color: var(--primary-color);
+}
+
+.card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 0.4rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: var(--text-inverse);
+  line-height: 1.6;
   margin: 0;
 }
 
-/* 📱 Responsive */
-@media (max-width: 992px) {
-  .timelineSection {
-    padding: 4rem 0;
+/* ───── Responsive ───── */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 28px;
   }
 
-  .title {
-    font-size: 1.75rem;
-  }
-
-  .card {
-    padding: 2rem 1.5rem;
-  }
-
-  .number {
-    width: 38px;
-    height: 38px;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .cardsGrid {
-    gap: 1.5rem;
+  .timelineItem {
+    grid-template-columns: 28px 1fr;
   }
 
   .card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    padding: 1.5rem;
   }
 }

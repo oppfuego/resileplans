@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
-import Grid from "../grid/Grid";
 import styles from "./ValuesIcons.module.scss";
 import { motion } from "framer-motion";
 
 interface ValueItem {
-    icon: string;
     title: string;
     description?: string;
     text?: string;
@@ -17,8 +15,8 @@ interface Props {
     values: ValueItem[];
 }
 
-const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
+const itemVariants = {
+    hidden: { opacity: 0, y: 24 },
     visible: { opacity: 1, y: 0 },
 };
 
@@ -28,10 +26,13 @@ const ValuesIcons: React.FC<Props> = ({ title, description, values }) => {
             <div className={styles.container}>
                 <div className={styles.head}>
                     {title && <h2 className={styles.sectionTitle}>{title}</h2>}
-                    {description && <p className={styles.sectionDesc}>{description}</p>}
+                    {description && (
+                        <p className={styles.sectionDesc}>{description}</p>
+                    )}
                 </div>
 
-                <Grid columns={values.length > 3 ? 4 : values.length} gap="2rem">
+
+                <div className={styles.valuesGrid}>
                     {values.map((v, i) => (
                         <motion.div
                             key={i}
@@ -39,15 +40,20 @@ const ValuesIcons: React.FC<Props> = ({ title, description, values }) => {
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.2 }}
-                            variants={cardVariants}
-                            transition={{ delay: i * 0.15, duration: 0.5, ease: "easeOut" }}
+                            variants={itemVariants}
+                            transition={{ duration: 0.45, delay: i * 0.08 }}
                         >
-                            <div className={styles.icon}>{v.icon}</div>
-                            <h3>{v.title}</h3>
-                            <p>{v.description ?? v.text}</p>
+                            <div className={styles.icon}>
+                                {(i + 1).toString().padStart(2, "0")}
+                            </div>
+
+                            <div className={styles.valueContent}>
+                                <h3>{v.title}</h3>
+                                <p>{v.description ?? v.text}</p>
+                            </div>
                         </motion.div>
                     ))}
-                </Grid>
+                </div>
             </div>
         </section>
     );

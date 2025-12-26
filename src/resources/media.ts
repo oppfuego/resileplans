@@ -2,8 +2,8 @@ import logo from "@/assets/logo/logo.png";
 import logo_black from "@/assets/logo/logo-black.svg";
 import image1 from "@/assets/images/image1.jpg";
 import image2 from "@/assets/images/image2.jpg";
-import image3 from "@/assets/images/image3.png";
-import image4 from "@/assets/images/image4.png";
+import image3 from "@/assets/images/image3.jpg";
+import image4 from "@/assets/images/image4.jpg";
 import image5 from "@/assets/images/image5.jpg";
 import image6 from "@/assets/images/image6.jpg";
 import image7 from "@/assets/images/image7.jpg";
@@ -25,10 +25,19 @@ import image21 from "@/assets/images/image21.jpg";
 import review1 from "@/assets/images/review1.png";
 import review2 from "@/assets/images/review2.png";
 import review3 from "@/assets/images/review3.png";
+import review4 from "@/assets/images/review4.jpg";
+import review5 from "@/assets/images/review5.jpg";
+import review6 from "@/assets/images/review6.jpg";
+import review7 from "@/assets/images/review7.jpg";
+import review8 from "@/assets/images/review8.jpg";
+import review9 from "@/assets/images/review9.jpg";
 
 import team1 from "@/assets/images/team1.jpg";
 import team2 from "@/assets/images/team2.jpg";
 import team3 from "@/assets/images/team3.jpg";
+import team4 from "@/assets/images/team4.jpg";
+import team5 from "@/assets/images/team5.jpg";
+import team6 from "@/assets/images/team6.jpg";
 
 import template1 from "../../public/templates/classic.png";
 import template2 from "../../public/templates/modern.png";
@@ -80,6 +89,12 @@ export const media = {
     review1: review1,
     review2: review2,
     review3: review3,
+    review4: review4,
+    review5: review5,
+    review6: review6,
+    review7: review7,
+    review8: review8,
+    review9: review9,
 
     coach1: coach1,
     coach2: coach2,
@@ -89,6 +104,9 @@ export const media = {
     team1: team1,
     team2: team2,
     team3: team3,
+    team4: team4,
+    team5: team5,
+    team6: team6,
 
     template1: template1,
     template2: template2,

@@ -28,7 +28,7 @@ const FAQ: React.FC<FAQProps> = ({ items, image }) => {
         <section className={styles.section}>
             <div className={wrapperClass}>
                 <div className={styles.left}>
-                    <h2 className={styles.title}>Frequently Asked Questions</h2>
+                    <h2 className={styles.title}>Questions & Answers</h2>
 
                     <div className={styles.faqList}>
                         {items.map((item, idx) => {

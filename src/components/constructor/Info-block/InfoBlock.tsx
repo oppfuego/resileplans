@@ -3,6 +3,8 @@ import React from "react";
 import styles from "./InfoBlock.module.scss";
 import Media from "../image/Media";
 import Text from "../text/Text";
+import AttributionTwoToneIcon from '@mui/icons-material/AttributionTwoTone';
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 
 interface InfoBlockProps {
     title?: string;
@@ -12,6 +14,12 @@ interface InfoBlockProps {
     bullets?: string[];
     align?: "left" | "center" | "right";
 }
+
+const ICON_MAP: Record<string, React.ReactNode> = {
+    ai: <PrecisionManufacturingIcon />,
+    expert: <AttributionTwoToneIcon />,
+};
+
 
 const InfoBlock: React.FC<InfoBlockProps> = ({
                                                  title,
@@ -23,15 +31,17 @@ const InfoBlock: React.FC<InfoBlockProps> = ({
                                              }) => {
     return (
         <div className={`${styles.infoBlock} ${styles[align]}`}>
-            {icon && <div className={styles.icon}>{icon}</div>}
+            {icon && ICON_MAP[icon] && (
+                <div className={styles.icon}>
+                    {ICON_MAP[icon]}
+                </div>
+            )}
 
             {image && (
                 <div className={styles.imageWrapper}>
                     <Media
                         src={image}
                         type="image"
-                        width="100%"
-                        height="220px"
                         alt={title || "Info"}
                         objectFit="cover"
                     />

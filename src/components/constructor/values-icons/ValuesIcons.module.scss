@@ -1,133 +1,103 @@
 .section {
   width: 100%;
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--background-color);
+  padding: 0 30px;
 }
 
 .container {
-  max-width: 1440px;
-  padding: 0 30px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  text-align: center;
+  gap: 4rem;
 }
 
+/* ───── Header ───── */
 .head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  max-width: 840px;
+  max-width: 720px;
 }
 
 .sectionTitle {
-  font-weight: 500;
-  font-size: 2rem;
-  color: var(--secondary-color);
-  letter-spacing: -0.015em;
-  line-height: 1.3;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .sectionDesc {
+  margin-top: 0.75rem;
   font-size: 1.05rem;
-  color: var(--text-secondary);
+  color: var(--text-inverse);
   line-height: 1.7;
-  max-width: 780px;
 }
 
-/* 🧩 Картки */
+/* ───── GRID ───── */
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+/* ───── ITEM ───── */
 .valueCard {
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 2.4rem 2rem;
-  text-align: left;
-  transition: all 0.25s ease;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  column-gap: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border-color);
+  transition: border-color 0.25s ease;
+}
+
+.valueCard:hover {
+  border-color: var(--primary-color);
+}
+
+/* ───── INDEX / ICON ───── */
+.icon {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  line-height: 1;
+  letter-spacing: 0.08em;
+}
+
+/* ───── CONTENT ───── */
+.valueContent {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  align-items: flex-start;
-
-  &:hover {
-    border-color: var(--primary-color);
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
-    transform: translateY(-4px);
-  }
-
-  h3 {
-    font-weight: 500;
-    font-size: 1.35rem;
-    color: var(--secondary-color);
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
-
-  p {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
-    margin: 0;
-    max-width: 360px;
-  }
+  gap: 0.5rem;
 }
 
-/* 🧱 Іконка */
-.icon {
-  font-size: 1.9rem;
-  color: var(--primary-color);
-  width: 46px;
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--quaternary-color);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-
-  .valueCard:hover & {
-    background: var(--primary-color);
-    color: var(--text-inverse);
-  }
+.valueContent h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin: 0;
 }
 
-/* 📱 Responsive */
+.valueContent p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ───── Responsive ───── */
 @media (max-width: 992px) {
-  .section {
-    padding: 4rem 0;
-  }
-
-  .sectionTitle {
-    font-size: 1.75rem;
-  }
-
-  .sectionDesc {
-    font-size: 0.98rem;
-  }
-
-  .valueCard {
-    padding: 2rem 1.5rem;
+  .valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
   .container {
-    padding: 0 20px;
+    padding: 3.5rem 1.25rem;
   }
 
-  .valueCard {
-    text-align: center;
-    align-items: center;
-
-    p {
-      max-width: 100%;
-    }
-  }
-
-  .icon {
-    margin: 0 auto;
+  .valuesGrid {
+    grid-template-columns: 1fr;
   }
 }

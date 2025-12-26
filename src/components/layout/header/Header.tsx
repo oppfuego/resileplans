@@ -98,24 +98,27 @@ const Header: React.FC = () => {
 
                         <div className={styles.currencySwitch}>
                             <div className={styles.toggleTrack}>
-                                {["GBP", "EUR", "USD"].map((c) => (
-                                    <button
-                                        key={c}
-                                        onClick={() => setCurrency(c as "GBP" | "EUR" | "USD")}
-                                        className={`${styles.option} ${currency === c ? styles.active : ""}`}
-                                    >
-                                        {c}
-                                    </button>
-                                ))}
-                                <div
-                                    className={styles.thumb}
-                                    data-currency={currency}
-                                />
+                                <div className={styles.selected}>
+                                    {currency}
+                                    <span className={styles.chevron} />
+                                </div>
+
+                                <div className={styles.menu}>
+                                    {["GBP", "EUR", "USD"].map((c) => (
+                                        <button
+                                            key={c}
+                                            onClick={() => setCurrency(c as "GBP" | "EUR" | "USD")}
+                                            className={`${styles.option} ${
+                                                currency === c ? styles.active : ""
+                                            }`}
+                                        >
+                                            {c}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-
                     </div>
-
 
                     {/* Mobile menu */}
                     <div className={styles.menuButton}>

@@ -18,41 +18,44 @@ a {
 }
 
 :root {
-    /* Основні */
-    --primary-color: #2563EB;       /* насичений синій — головний акцент */
-    --secondary-color: #1E3A8A;     /* темно-синій для контрасту */
-    --tertiary-color: #60A5FA;      /* світліший синій для м’яких акцентів */
-    --quaternary-color: #EFF6FF;    /* дуже світлий блакитний фон */
+    /* Основні акценти */
+    --primary-color: #7C3AED;        /* фіолетовий акцент (основний) */
+    --secondary-color: #4C1D95;      /* глибокий темно-фіолетовий */
+    --tertiary-color: #A78BFA;       /* м’який світло-фіолетовий */
+    --quaternary-color: #1F1B2E;     /* темно-сіро-фіолетовий фон */
 
     /* Фон та поверхні */
-    --background-light: #FFFFFF;    /* білий чистий фон */
-    --background-dark: #1E3A8A;     /* темно-синій фон для інверсій */
-    --surface-color: #FFFFFF;       /* поверхні (карточки, блоки) */
-    --surface-muted: #F3F4F6;       /* легкий сірий для секцій */
+    --background-light: #14121C;     /* основний темний фон */
+    --background-dark: #0F0C18;      /* ще темніший фон */
+    --surface-color: #1C182B;        /* карточки / блоки */
+    --surface-muted: #26223A;        /* секції / inset-блоки */
 
     /* Тексти */
-    --text-primary: #1E293B;        /* темно-синювато-сірий */
-    --text-secondary: #475569;      /* пом’якшений сірий */
-    --text-muted: #94A3B8;          /* світлий сірий для підписів */
-    --text-inverse: #FFFFFF;        /* білий текст на темному фоні */
-    --text-accent: #2563EB;         /* синій акцент у тексті */
+    --text-primary: #EDE9FE;         /* майже білий з фіолетовим відтінком */
+    --text-secondary: #C4B5FD;       /* приглушений фіолетовий */
+    --text-muted: #9CA3AF;           /* нейтральний сірий */
+    --text-inverse: #FFFFFF;
+    --text-accent: #A78BFA;          /* акцентний фіолетовий */
 
     /* Статуси */
-    --success-color: #22C55E;       /* яскраво-зелений */
-    --warning-color: #FACC15;       /* жовтий */
-    --error-color: #EF4444;         /* червоний */
-    --info-color: #3B82F6;          /* чистий блакитний акцент */
+    --success-color: #22C55E;        /* зелений (контрастний) */
+    --warning-color: #FBBF24;        /* жовто-золотий */
+    --error-color: #EF4444;          /* червоний */
+    --info-color: #8B5CF6;           /* фіолетово-блакитний */
 
     /* Інтерактивні */
-    --button-hover: #1D4ED8;        /* глибший синій при наведенні */
-    --link-color: #2563EB;          /* синє посилання */
-    --link-hover: #1E40AF;          /* темніше при наведенні */
+    --button-hover: #6D28D9;         /* темніший фіолет при hover */
+    --link-color: #A78BFA;
+    --link-hover: #C4B5FD;
 
     /* Система */
-    --border-color: #E5E7EB;        /* світлі бордери */
-    --shadow-color: rgba(0, 0, 0, 0.08);
+    --border-color: #2E2A44;         /* темно-сірий бордер */
+    --shadow-color: rgba(0, 0, 0, 0.45);
 
+    /* Типографія */
     --font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 
-    --main-padding: 0 50px 0 50px;
+    /* Layout */
+    --main-padding: 0 50px;
 }
+

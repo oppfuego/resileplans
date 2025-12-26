@@ -1,10 +1,13 @@
 import { AlertColor } from "@mui/material/Alert";
 
+export type SignUpType = "user" | "copywriter";
+
 export const signUpInitialValues = {
     name: "",
     email: "",
     password: "",
     terms: false,
+    signupType: "user" as SignUpType,
 };
 
 type SignUpErrors = {
@@ -33,20 +36,42 @@ export const signUpOnSubmit = async (
     router: { replace: (url: string) => void; refresh: () => void }
 ) => {
     try {
+        // 🔐 стандартна реєстрація (БЕЗ змін)
         const res = await fetch("/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(values),
         });
+
         const data = await res.json();
 
-        if (res.ok && data?.user) {
-            showAlert("Registration successful!", "", "success");
-            router.replace("/");
-            router.refresh();
-        } else {
+        if (!res.ok || !data?.user) {
             showAlert(data?.message || "Registration failed", "", "error");
+            return;
         }
+
+        // ✉️ SIDE-EFFECT ТІЛЬКИ ДЛЯ COPYWRITER
+        if (values.signupType === "copywriter") {
+            await fetch("/api/copywriter-notify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: values.name,
+                    email: values.email,
+                }),
+            });
+        }
+
+        showAlert(
+            "Registration successful!",
+            values.signupType === "copywriter"
+                ? "We’ll contact you by email shortly."
+                : "",
+            "success"
+        );
+
+        router.replace("/");
+        router.refresh();
     } catch (e: any) {
         showAlert(e?.message || "Network error", "", "error");
     } finally {

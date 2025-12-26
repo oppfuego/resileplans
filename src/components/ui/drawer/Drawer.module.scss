@@ -64,21 +64,96 @@
 }
 
 .currencySwitch {
-    margin-left: 1rem;
+    position: relative;
+    display: inline-block;
+}
 
-    .currencySelect {
-        background: var(--quaternary-color);
-        border: 1px solid var(--text-inverse);
-        color: var(--primary-color);
-        padding: 6px 12px;
-        border-radius: 6px;
-        cursor: pointer;
+.toggleTrack {
+    position: relative;
+    width: 120px;
+    font-size: 0.9rem;
+}
+
+/* верх */
+.selected {
+    height: 44px;
+    padding: 0 14px;
+    background: var(--background-light);
+    border: 1px solid #e5e7eb;
+    color: var(--text-inverse);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+        border-color: var(--primary-color, #2563eb);
+        box-shadow: 0 6px 18px rgba(37, 99, 235, 0.15);
+    }
+}
+
+/* стрілка */
+.chevron {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #6b7280;
+    border-bottom: 2px solid #6b7280;
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+}
+
+/* меню */
+.menu {
+    position: absolute;
+    top: 100%; /* ✅ КЛЮЧОВИЙ FIX */
+    left: 0;
+    width: 100%;
+    padding-top: 6px; /* ✅ hover buffer */
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    z-index: 20;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px) scale(0.98);
+    transition: all 0.2s ease;
+}
+
+/* hover відкриття */
+.toggleTrack:hover .menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+.toggleTrack:hover .chevron {
+    transform: rotate(225deg);
+}
+
+/* пункт */
+.option {
+    height: 40px;
+    padding: 0 14px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+        background: #f3f4f6;
+    }
+
+    &.active {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color, #2563eb);
         font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.2s ease;
-
-        &:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
     }
 }
