@@ -3,27 +3,28 @@ import { COMPANY_NAME } from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: `${COMPANY_NAME} — From Idea to Investor-Ready Plan`,
+        title: `${COMPANY_NAME} — Business Plans Built by Experts`,
         description:
-            "Generate a business plan instantly with AI or upgrade to a professional expert-written version in 24 hours.",
+            "Professional business plans written by real analysts, with AI used as a supportive tool for speed and clarity.",
         canonical: "/",
     },
 
     blocks: [
-        // 1️⃣ HERO — компактний, сильний
+        // 1️⃣ HERO — людина на першому місці
         {
             type: "custom",
             component: "HeroSection",
             title: "Business plans",
-            highlight: "without the headache",
+            highlight: "built by professionals",
             description:
-                "Start with AI in minutes. Upgrade to a professional plan in 24 hours. One platform — two speeds.",
-            primaryCta: { text: "Generate with AI", link: "/profile" },
-            secondaryCta: { text: "Expert in 24h", link: "/profile" },
+                "Your business plan is created by real experts. AI helps with structure and speed — but every important decision is made by a human.",
+            primaryCta: { text: "Start with Expert Plan", link: "/profile" },
+            secondaryCta: { text: "Draft with AI", link: "/profile" },
             image: "image1",
             align: "left",
         },
 
+        // 2️⃣ VALUE GRID
         {
             type: "grid",
             columns: 3,
@@ -31,102 +32,101 @@ const schema: PageSchema = {
             cards: [
                 {
                     image: "image2",
-                    title: "Clear business structure",
+                    title: "Human-led business logic",
                     description:
-                        "A logically built business plan with executive summary, market overview, strategy, operations, and financials — all in the right order, without confusion.",
+                        "Every plan is structured and validated by professionals who understand real business decisions, not just templates.",
                 },
                 {
                     image: "image20",
-                    title: "Financials that tell a story",
+                    title: "Financials you can defend",
                     description:
-                        "3-year financial forecasts with clear assumptions, revenue logic, and cost structure — easy to explain to investors or professors.",
+                        "Clear assumptions, realistic projections, and financial logic that investors, professors, and partners can follow.",
                 },
                 {
                     image: "image3",
-                    title: "Professional document design",
+                    title: "Professional document quality",
                     description:
-                        "Clean, minimal layouts that look credible and serious — ready to send, print, or present without extra formatting.",
+                        "Well-designed, clean, and credible documents that are ready to present, submit, or print without extra work.",
                 },
                 {
                     image: "image4",
-                    title: "Investor-focused narrative",
+                    title: "Story investors understand",
                     description:
-                        "Not just information, but a clear story: what problem you solve, why now, how you win, and how the business scales.",
+                        "Your plan explains not only what you do, but why it works, why now, and how it grows.",
                 },
                 {
                     image: "image5",
-                    title: "Editable & flexible content",
+                    title: "Flexible and editable",
                     description:
-                        "Every section can be edited, regenerated, or refined — perfect for iterations, feedback, and changing assumptions.",
+                        "You can refine sections, adjust assumptions, and improve clarity at any stage of the process.",
                 },
                 {
                     image: "image6",
-                    title: "Built for real use cases",
+                    title: "Made for real scenarios",
                     description:
-                        "Suitable for startups, students, accelerators, consultants, and grant applications — not a generic template.",
+                        "Used for startups, education, grants, consulting, and fundraising — not generic exercises.",
                 },
             ],
         },
 
-
-        // 4️⃣ SECTION — AI → Expert (асиметрія)
+        // 3️⃣ HUMAN → AI SUPPORT
         {
             type: "section",
             align: "start",
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                icon: "ai",
-                title: "Start with AI",
+                icon: "expert",
+                title: "Expert-written first",
                 description:
-                    "Perfect for exploring ideas, learning, and creating a solid first draft in minutes.",
+                    "Your plan is written and reviewed by real analysts who focus on accuracy, logic, and real-world credibility.",
                 bullets: [
-                    "Instant structured draft",
-                    "Unlimited regenerations",
-                    "Fully editable sections",
+                    "Written by professionals",
+                    "Business logic validation",
+                    "Clear investor narrative",
                 ],
             },
             right: {
                 type: "custom",
                 component: "InfoBlock",
-                icon: "expert",
-                title: "Upgrade to Expert",
+                icon: "ai",
+                title: "AI as a supporting tool",
                 description:
-                    "When accuracy and credibility matter, professionals refine and validate every detail.",
+                    "AI helps speed up drafts, structure ideas, and iterate faster — always under human control.",
                 bullets: [
-                    "Written by real analysts",
-                    "Delivered within 24 hours",
-                    "Investor-focused logic",
+                    "Fast initial structuring",
+                    "Easy iterations",
+                    "Editable supporting drafts",
                 ],
             },
         },
 
-
+        // 4️⃣ PROCESS TIMELINE
         {
             type: "section",
             align: "center",
             gap: "1rem",
             left: {
                 type: "custom",
-                component: "StoryTimeline",
+                component: "Timeline",
+                title: "How we build and evolve the platform",
+                description:
+                    `${COMPANY_NAME} was not created overnight. It’s the result of years of consulting experience, product development, and continuous collaboration between humans and AI.`,
                 steps: [
                     {
-                        year: "Day 1",
-                        title: "Idea in your head",
+                        title: "Your idea",
                         description:
-                            "You have a concept, but it’s messy — notes, thoughts, and assumptions without structure.",
+                            "You provide the idea, goals, and context — even if it’s rough or unstructured.",
                     },
                     {
-                        year: "Day 1",
-                        title: "AI-generated draft",
+                        title: "Structured draft",
                         description:
-                            "The idea turns into a clear business plan draft with logic, sections, and direction.",
+                            "AI helps organize inputs into a clear draft that speeds up professional work.",
                     },
                     {
-                        year: "Day 2",
-                        title: "Expert-ready version",
+                        title: "Expert refinement",
                         description:
-                            "A professional refines the plan, validates assumptions, and prepares it for investors.",
+                            "A human expert reviews, rewrites, validates assumptions, and prepares the final version.",
                     },
                 ],
             },
@@ -136,110 +136,97 @@ const schema: PageSchema = {
             },
         },
 
-
-        // 7️⃣ VIDEO DEMO — всередині сторінки
+        // 5️⃣ VIDEO
         {
             type: "custom",
             component: "VideoDemo",
-            title: "From answers to a real document",
+            title: "From questions to a real business document",
             description:
-                "See how a simple form becomes a complete business plan.",
+                "See how expert guidance and structured inputs turn into a complete business plan.",
             video: "planDemo",
         },
 
+        // 6️⃣ VALUES
         {
             type: "custom",
             component: "ValuesIcons",
-            title: "Why this actually works",
+            title: "Why this approach works",
             description:
-                "We focus on real outcomes and clear logic — not buzzwords or generic templates.",
+                "We combine human expertise with smart tools to deliver plans that make sense in the real world.",
             values: [
                 {
-                    title: "Guided thinking",
+                    title: "Human judgment",
                     description:
-                        "Step-by-step questions help you explain your idea clearly, even if you’re not a business expert.",
+                        "Key decisions are made by professionals, not automated scripts.",
                 },
                 {
-                    title: "Real business structure",
+                    title: "Clear business structure",
                     description:
-                        "Every plan follows proven logic: problem, solution, market, strategy, and finances.",
+                        "Every plan follows proven logic that investors and institutions expect.",
                 },
                 {
-                    title: "Actionable financials",
+                    title: "Understandable financials",
                     description:
-                        "Revenue, costs, and growth assumptions are built to be understandable and defensible.",
+                        "Numbers are explained clearly, not hidden behind formulas.",
                 },
                 {
-                    title: "Flexible depth",
+                    title: "Controlled use of AI",
                     description:
-                        "Use a quick draft for validation or upgrade to a fully detailed, investor-ready version.",
+                        "AI supports speed and clarity without replacing expertise.",
                 },
                 {
-                    title: "Human expertise on demand",
+                    title: "Professional review",
                     description:
-                        "When precision matters, professionals review, rewrite, and improve your plan.",
+                        "Every important section is reviewed and improved by a human.",
                 },
                 {
-                    title: "Built for real scenarios",
+                    title: "Real-world focus",
                     description:
-                        "Works for startups, education, grants, consulting, and fundraising — not just theory.",
+                        "Built for actual decisions, not theoretical exercises.",
                 },
             ],
         },
 
-
-        // 9️⃣ TESTIMONIALS — оновлені зарубіжні імена
+        // 7️⃣ TESTIMONIALS
         {
             type: "custom",
             component: "TestimonialsSlider",
-            title: "What Our Clients Say",
-            description: "Feedback from businesses that worked with our team and saw measurable results.",
+            title: "What clients say",
+            description:
+                "Feedback from founders and professionals who worked directly with our experts.",
             testimonials: [
                 {
                     name: "Daniel Wright",
                     role: "Founder, SaaS Startup",
                     image: "review5",
-                    text: "The planning process was structured and transparent. We finally had numbers and logic investors could actually understand.",
+                    text: "This felt like working with a consultant, not a generator. The logic finally made sense to investors.",
                     rating: 5,
                 },
                 {
                     name: "Michael Andersen",
                     role: "CEO, Logistics Company",
                     image: "review8",
-                    text: "They approached our case like partners, not vendors. The business plan helped us restructure operations and prepare for negotiations.",
+                    text: "They challenged our assumptions and improved the plan instead of just formatting it.",
                     rating: 5,
                 },
                 {
                     name: "Thomas Keller",
                     role: "Managing Director, Manufacturing",
                     image: "review4",
-                    text: "Clear communication, strong financial logic, and realistic assumptions. This was not a template — it was tailored to our business.",
+                    text: "Clear numbers, realistic thinking, and strong explanations. Definitely not AI fluff.",
                     rating: 5,
                 },
                 {
                     name: "Laura Mitchell",
                     role: "Marketing Lead, E-commerce Brand",
                     image: "review7",
-                    text: "The expert explained everything in plain language. I finally understood our margins and growth limits.",
-                    rating: 5,
-                },
-                {
-                    name: "Sophie Laurent",
-                    role: "Co-founder, EdTech Project",
-                    image: "review6",
-                    text: "We used the plan for a grant application. The structure and clarity made a huge difference for reviewers.",
-                    rating: 5,
-                },
-                {
-                    name: "Emily Carter",
-                    role: "Business Consultant",
-                    image: "review9",
-                    text: "I now use their process as a base for my own clients. It saves weeks of work and delivers consistent quality.",
+                    text: "The expert explained everything clearly. I finally understood our margins and limits.",
                     rating: 5,
                 },
             ],
         },
 
+        // 8️⃣ PRICING
         {
             type: "grid",
             columns: 3,
@@ -248,126 +235,129 @@ const schema: PageSchema = {
                 {
                     type: "pricing",
                     variant: "starter",
-                    title: "AI Instant Plan",
+                    title: "AI Draft",
                     price: "€9",
                     tokens: 900,
-                    badgeTop: "Instant",
+                    badgeTop: "Draft",
                     description:
-                        "Generate your business plan in seconds with our AI-powered generator. Perfect for early-stage ideas or quick drafts.",
+                        "A fast, structured AI-generated draft to shape your idea and prepare it for expert refinement.",
                     features: [
-                        "Instant AI-generated plan",
-                        "Editable PDF & DOCX",
+                        "Structured AI draft",
+                        "Editable content",
                         "Multiple languages",
                         "Unlimited revisions",
                     ],
-                    buttonText: "Start with AI",
+                    buttonText: "Create Draft",
                     buttonLink: "/checkout?plan=ai",
+                },
+                {
+                    type: "pricing",
+                    variant: "pro",
+                    title: "Expert Business Plan",
+                    price: "€50",
+                    tokens: 5000,
+                    badgeTop: "Most Popular",
+                    description:
+                        "A complete business plan written and reviewed by professionals, with AI used only as a supporting tool.",
+                    features: [
+                        "Expert-written business plan",
+                        "Investor-ready structure",
+                        "Clear financial logic",
+                        "Professional formatting",
+                        "Revisions included",
+                    ],
+                    buttonText: "Work with Expert",
+                    buttonLink: "/checkout?plan=expert",
                 },
                 {
                     type: "pricing",
                     variant: "premium",
                     title: "Investor Pack",
-                    price: "€50",
-                    tokens: 5000,
-                    badgeTop: "Complete Package",
+                    price: "€200",
+                    tokens: 20000,
+                    badgeTop: "For Fundraising",
                     description:
-                        "All-in-one: full business plan + investor pitch deck + design layout. Ideal for fundraising and professional presentations.",
+                        "An advanced package for fundraising, grants, and negotiations — built with deep analysis and investor focus.",
                     features: [
-                        "Business plan + Pitch deck",
-                        "Branded design templates",
-                        "Investor-ready formatting",
-                        "Expert revisions included",
+                        "Advanced expert-written plan",
+                        "Detailed financial modeling",
+                        "Investor narrative & positioning",
+                        "Pitch deck structure guidance",
+                        "Priority expert review",
                     ],
-                    buttonText: "Get Full Pack",
-                    buttonLink: "/checkout?plan=premium",
-                },
-                {
-                    type: "pricing",
-                    variant: "custom",
-                    title: "Custom Plan",
-                    price: "dynamic",
-                    tokens: 0,
-                    description: "Pay what fits your needs.",
-                    features: ["Flexible", "Fast", "Tailored"],
-                    buttonText: "Build Custom Plan",
+                    buttonText: "Get Investor Pack",
+                    buttonLink: "/checkout?plan=investor",
                 },
             ],
         },
 
+        {
+            type: "section",
+            align: "center",
+            left: {
+                type: "pricing",
+                variant: "custom",
+                title: "Custom Project",
+                price: "dynamic",
+                tokens: 0,
+                description: "Tailored scope based on your needs.",
+                features: ["Flexible", "Tailored", "Professional"],
+                buttonText: "Request Custom Plan",
+            },
+            right: {
+                type: "custom",
+                component: "InfoBlock",
+                title: "Need a different solution?",
+                description:
+                    "If your project has unique requirements or a larger scope, we offer custom plans tailored to your needs. Contact us to discuss your specific situation and get a personalized quote.",
+
+            }
+        },
+
+        // 9️⃣ FAQ (без 24 годин)
         {
             type: "faq",
             items: [
                 {
-                    question: "Can I start with AI and upgrade to an expert plan later?",
+                    question: "Is the business plan written by a real person?",
                     answer:
-                        "Yes. Most users begin with an AI-generated draft and then upgrade to an expert-written version when they need higher accuracy or investor-ready quality.",
+                        "Yes. All expert plans are written and reviewed by real business analysts.",
                 },
                 {
-                    question: "Is the expert-written plan created by a real person?",
+                    question: "What role does AI play?",
                     answer:
-                        "Absolutely. Expert plans are written and reviewed by real business analysts, not AI-edited content.",
+                        "AI helps structure drafts and speed up iterations, but final decisions are made by humans.",
                 },
                 {
-                    question: "How long does the expert plan take?",
+                    question: "Can I start with an AI draft?",
                     answer:
-                        "Expert-written plans are delivered within 24 hours after you submit your details.",
-                },
-                {
-                    question: "What do I get with the AI-generated plan?",
-                    answer:
-                        "You receive a complete draft including executive summary, market analysis, strategy, and financial projections — generated instantly.",
-                },
-                {
-                    question: "Can I edit the business plan after generation?",
-                    answer:
-                        "Yes. All plans are fully editable. You can revise sections, regenerate content, and export updated versions at any time.",
+                        "Yes. Many users start with a draft and later upgrade to a fully expert-written plan.",
                 },
                 {
                     question: "Are financial projections included?",
                     answer:
-                        "Yes. Both AI and expert plans include 3-year financial projections with clear assumptions and structure.",
+                        "Yes. All plans include structured financial projections with clear assumptions.",
                 },
                 {
-                    question: "Is my business idea confidential?",
+                    question: "Can I edit my plan?",
                     answer:
-                        "Yes. Your data is securely stored and never shared with third parties. Confidentiality is a top priority.",
+                        "Absolutely. All content is editable and can be refined at any stage.",
                 },
                 {
-                    question: "Who is this platform best for?",
+                    question: "Is my idea confidential?",
                     answer:
-                        "It’s designed for startups, students, entrepreneurs, consultants, and anyone who needs a clear business plan quickly.",
-                },
-                {
-                    question: "Can I use the plan for investors or banks?",
-                    answer:
-                        "Yes. Expert plans are specifically structured to meet investor and financial institution expectations.",
-                },
-                {
-                    question: "What formats can I export my plan in?",
-                    answer:
-                        "You can export your business plan in editable formats such as PDF and DOCX.",
-                },
-                {
-                    question: "Do you offer refunds?",
-                    answer:
-                        "If you experience any issues, our support team will review your case and help resolve it quickly.",
-                },
-                {
-                    question: "Do I need business experience to use this platform?",
-                    answer:
-                        "No. The platform guides you step by step, making it accessible even for first-time founders.",
+                        "Yes. Confidentiality and data protection are a top priority.",
                 },
             ],
         },
 
-
-        // 13️⃣ SOFT CTA
+        // 10️⃣ CTA
         {
             type: "custom",
             component: "TextWithButton",
-            title: "Still have questions?",
+            title: "Have specific requirements?",
             description:
-                "Contact us",
+                "Talk to us and we’ll help you choose the right approach.",
             buttonText: "Contact Support",
             buttonLink: "/contact-us",
         },
@@ -375,4 +365,3 @@ const schema: PageSchema = {
 };
 
 export default schema;
-

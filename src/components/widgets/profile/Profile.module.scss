@@ -1,23 +1,13 @@
 .profilePage {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px var(--main-padding);
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
-  padding: 40px var(--main-padding);
-  background: var(--quaternary-color);
-  min-height: 100vh;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  gap: 3rem;
 }
 
-.headerRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 2rem;
-  width: 100%;
-
-  @media (max-width: 992px) {
-    flex-direction: column;
-  }
+.workspaceRow {
+  display: grid;
+  grid-template-columns: 1fr;
 }

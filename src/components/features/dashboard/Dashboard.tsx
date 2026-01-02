@@ -6,42 +6,29 @@ import TransactionHistory from "@/components/widgets/all-transactions/AllTransac
 import styles from "./Dashboard.module.scss";
 
 export default function Dashboard() {
-    const [activeTab, setActiveTab] = useState<"orders" | "transactions">("orders");
+    const [activeTab, setActiveTab] =
+        useState<"orders" | "transactions">("orders");
 
     return (
-        <div className={styles.dashboard}>
-            {/* 🔹 Панель перемикача */}
-            <div className={styles.toggleBar}>
+        <section className={styles.section}>
+            <div className={styles.tabs}>
                 <button
-                    className={`${styles.toggleButton} ${
-                        activeTab === "orders" ? styles.active : ""
-                    }`}
+                    className={activeTab === "orders" ? styles.active : ""}
                     onClick={() => setActiveTab("orders")}
                 >
-                    Orders
+                    Projects
                 </button>
                 <button
-                    className={`${styles.toggleButton} ${
-                        activeTab === "transactions" ? styles.active : ""
-                    }`}
+                    className={activeTab === "transactions" ? styles.active : ""}
                     onClick={() => setActiveTab("transactions")}
                 >
-                    Transactions
+                    Payments
                 </button>
             </div>
 
-            {/* 🔹 Контент */}
             <div className={styles.content}>
-                {activeTab === "orders" ? (
-                    <div key="orders" className={styles.fadeIn}>
-                        <AllOrders />
-                    </div>
-                ) : (
-                    <div key="transactions" className={styles.fadeIn}>
-                        <TransactionHistory />
-                    </div>
-                )}
+                {activeTab === "orders" ? <AllOrders /> : <TransactionHistory />}
             </div>
-        </div>
+        </section>
     );
 }

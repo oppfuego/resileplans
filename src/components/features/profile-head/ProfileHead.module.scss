@@ -1,62 +1,39 @@
-.hero {
-  flex: 1;
+.header {
   display: flex;
-  align-items: center;
-  gap: 1.8rem;
-  background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
-  border-radius: 20px;
-  padding: 2rem 2.5rem;
-  color: #ffffff;
-  box-shadow: 0 10px 40px rgba(30, 58, 138, 0.25);
-  width: 50%;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
 
-  @media (max-width: 992px) {
-    flex-direction: column;
-    text-align: center;
+.left {
+  max-width: 640px;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
   }
 
-  .avatar {
-    font-size: 4.5rem;
-    opacity: 0.9;
+  p {
+    margin-top: 0.6rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+}
+
+.right {
+  background: var(--surface-color);
+  border-radius: 14px;
+  padding: 1rem 1.4rem;
+  border: 1px solid var(--border-color);
+
+  .label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
   }
 
-  .text {
-    h1 {
-      font-size: 1.9rem;
-      font-weight: 800;
-      margin-bottom: 0.4rem;
-
-      span {
-        color: #facc15;
-      }
-    }
-
-    p {
-      font-size: 1rem;
-      opacity: 0.9;
-      margin-bottom: 1rem;
-      max-width: 500px;
-    }
-
-    .stats {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-
-      div {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: rgba(255, 255, 255, 0.15);
-        padding: 0.4rem 0.8rem;
-        border-radius: 10px;
-        font-weight: 600;
-        font-size: 0.9rem;
-
-        svg {
-          font-size: 1rem;
-        }
-      }
-    }
+  strong {
+    display: block;
+    margin-top: 0.3rem;
+    font-weight: 600;
   }
 }

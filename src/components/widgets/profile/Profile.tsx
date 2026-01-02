@@ -9,10 +9,12 @@ import styles from "./Profile.module.scss";
 const Profile = () => {
     return (
         <div className={styles.profilePage}>
-            <div className={styles.headerRow}>
-                <ProfileHead />
+            <ProfileHead />
+
+            <div className={styles.workspaceRow}>
                 <BalanceCard />
             </div>
+
             <Dashboard />
         </div>
     );

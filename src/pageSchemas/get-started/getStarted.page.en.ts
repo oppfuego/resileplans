@@ -5,40 +5,40 @@ const schema: PageSchema = {
     meta: {
         title: `Get Started — How ${COMPANY_NAME} Works`,
         description:
-            `${COMPANY_NAME} is a human-first business planning service. Learn how our experts work, how AI supports the process, and what you receive in 24 hours.`,
+            `${COMPANY_NAME} is a human-led business planning service. Learn how our experts work with you, how AI supports the process internally, and what you receive.`,
         canonical: "/get-started",
     },
 
     blocks: [
-        // 1️⃣ HERO — спокійний, впевнений
+        // 1️⃣ HERO — людина в центрі
         {
             type: "custom",
             component: "HeroSection",
             title: "How we work with you",
             highlight: `${COMPANY_NAME}`,
             description:
-                "This page explains how our company operates, how experts and AI collaborate, and what happens after you submit your request.",
+                "This page explains how our experts work with your idea, how decisions are made, and how your business plan is created step by step.",
             image: "image16",
             align: "left",
             primaryCta: { text: "Start My Request", link: "/sign-up" },
         },
 
-        // 2️⃣ WHO WE ARE (коротко, але по суті)
+        // 2️⃣ WHO WE ARE
         {
             type: "section",
             title: "Who you work with",
             description:
-                `${COMPANY_NAME} is not an automated generator. We are a team of business analysts, financial specialists, and editors supported by AI tools.`,
+                `${COMPANY_NAME} is not an automated tool. You work with real business analysts, financial specialists, and editors who take responsibility for the final result.`,
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                title: "The company",
+                title: "Our team",
                 description:
-                    "We operate as a distributed consulting team. Each project is assigned to a real specialist with relevant industry experience.",
+                    "We operate as a distributed consulting team. Each project is handled by a specialist with relevant experience.",
                 bullets: [
-                    "Business analysts & financial modelers",
-                    "Editors with investor experience",
-                    "Internal quality review process",
+                    "Business analysts with real-world background",
+                    "Financial specialists who build and explain models",
+                    "Editors focused on clarity and investor expectations",
                 ],
             },
             right: {
@@ -48,158 +48,158 @@ const schema: PageSchema = {
             },
         },
 
-        // 3️⃣ HOW AI IS USED (без маркетингу)
+        // 3️⃣ HOW AI IS USED — спокійно і чесно
         {
             type: "section",
-            title: "How we use AI (and where we don’t)",
+            title: "How AI supports our work",
             description:
-                "AI supports our team, but never replaces human decision-making.",
+                "AI helps our experts work faster and more consistently, but it never replaces human judgment.",
             left: {
                 type: "custom",
                 component: "InfoBlock",
-                title: "AI supports",
+                title: "Where AI helps",
                 description:
-                    "AI is used internally to speed up structured research and preparation.",
+                    "AI is used internally as a supporting tool during preparation.",
                 bullets: [
-                    "Market data aggregation",
-                    "Initial structure drafts",
-                    "Financial model templates",
+                    "Structuring background information",
+                    "Assisting with early drafts and outlines",
+                    "Supporting financial model preparation",
                 ],
             },
             right: {
                 type: "custom",
                 component: "InfoBlock",
-                title: "Humans decide",
+                title: "Where humans lead",
                 description:
-                    "All strategic decisions, wording, assumptions, and conclusions are made by experts.",
+                    "All meaningful decisions and final content are created by people.",
                 bullets: [
-                    "Strategy & positioning",
-                    "Assumption validation",
-                    "Final writing & tone",
+                    "Business strategy and positioning",
+                    "Validation of assumptions",
+                    "Final writing, tone, and conclusions",
                 ],
             },
         },
 
-        // 4️⃣ COMPANY PROCESS — Timeline (ключова частина)
+        // 4️⃣ PROCESS — ключовий блок
         {
             type: "custom",
             component: "Timeline",
             title: "Our internal workflow",
             description:
-                "This is how a business plan moves through our company — from request to delivery.",
+                "This is how your business plan moves through our team — from initial request to final delivery.",
             steps: [
                 {
-                    title: "Request intake",
+                    title: "Request review",
                     description:
-                        "Your submission is reviewed by our coordination team to understand scope, goals, and industry.",
+                        "Your request is reviewed to understand goals, scope, and industry context.",
                 },
                 {
                     title: "Expert assignment",
                     description:
-                        "We assign a specialist with experience relevant to your business model.",
+                        "A specialist with relevant experience is assigned to your project.",
                 },
                 {
                     title: "Clarification & alignment",
                     description:
-                        "If needed, the expert уточнює деталі before writing begins.",
+                        "If needed, the expert contacts you to clarify details before work begins.",
                 },
                 {
-                    title: "Research & modeling",
+                    title: "Research & preparation",
                     description:
-                        "Market data and financial models are prepared with AI-assisted tooling.",
+                        "Market information and financial structures are prepared with internal tools.",
                 },
                 {
                     title: "Expert writing",
                     description:
-                        "The plan is written manually by the assigned analyst.",
+                        "The business plan is written manually by the assigned analyst.",
                 },
                 {
-                    title: "Internal quality review",
+                    title: "Quality review",
                     description:
-                        "A second specialist checks logic, clarity, and investor readiness.",
+                        "Another specialist reviews logic, clarity, and overall consistency.",
                 },
                 {
                     title: "Delivery",
                     description:
-                        "You receive the final document within 24 hours.",
+                        "You receive a complete, structured business plan ready for use.",
                 },
             ],
         },
 
-        // 5️⃣ WHAT YOU RECEIVE (чітко і без прикрас)
+        // 5️⃣ WHAT YOU RECEIVE
         {
             type: "custom",
             component: "ValuesIcons",
             title: "What you receive",
             description:
-                "Every project includes the following deliverables.",
+                "Each project includes clear and practical deliverables.",
             values: [
                 {
                     title: "Structured business plan",
                     description:
-                        "Clear sections, logical flow, and professional formatting.",
+                        "Logical sections, clear flow, and professional presentation.",
                 },
                 {
                     title: "Financial projections",
                     description:
-                        "3-year forecasts with explained assumptions.",
+                        "Multi-year forecasts with explained assumptions.",
                 },
                 {
-                    title: "Editable formats",
+                    title: "Editable documents",
                     description:
-                        "Delivered in formats suitable for editing and presentation.",
+                        "Formats suitable for editing, sharing, and presenting.",
                 },
                 {
                     title: "Expert validation",
                     description:
-                        "Reviewed by professionals, not auto-generated text.",
+                        "Reviewed and approved by professionals, not auto-generated text.",
                 },
                 {
                     title: "Revision option",
                     description:
-                        "One revision included after delivery.",
+                        "One revision included to refine details if needed.",
                 },
                 {
-                    title: "Optional follow-up",
+                    title: "Optional follow-up work",
                     description:
-                        "Pitch decks and updates available if needed.",
+                        "Additional materials such as pitch decks can be prepared on request.",
                 },
             ],
         },
 
-        // 7️⃣ CTA — спокійний
+        // 6️⃣ CTA
         {
             type: "custom",
             component: "MissionBanner",
             title: "Start working with our team",
             description:
-                "Submit your request and let our specialists handle the rest.",
+                "Submit your request and let our specialists take care of the planning.",
             image: "image19",
         },
 
-        // 8️⃣ FAQ — коротко, по суті
+        // 7️⃣ FAQ — без акценту на швидкість
         {
             type: "faq",
             items: [
                 {
                     question: "Is this service automated?",
                     answer:
-                        "No. AI is used internally, but all plans are written by people.",
+                        "No. AI is used internally, but every plan is written and reviewed by people.",
                 },
                 {
-                    question: "Can I communicate with the expert?",
+                    question: "Will I work with a real expert?",
                     answer:
-                        "Yes. Communication is available during the process.",
+                        "Yes. Each project is handled by a dedicated specialist.",
                 },
                 {
-                    question: "What happens if something is unclear?",
+                    question: "What if something is unclear?",
                     answer:
-                        "The expert will reach out before finalizing the plan.",
+                        "The expert will contact you to clarify details before finalizing the plan.",
                 },
                 {
-                    question: "Is 24 hours guaranteed?",
+                    question: "Can I request changes?",
                     answer:
-                        "Yes, for standard projects. Complex cases may be discussed in advance.",
+                        "Yes. One revision is included to ensure the plan meets your needs.",
                 },
             ],
         },
