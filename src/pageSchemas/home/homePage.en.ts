@@ -1,5 +1,5 @@
-import { PageSchema } from "@/components/constructor/page-render/types";
-import { COMPANY_NAME } from "@/resources/constants";
+import {PageSchema} from "@/components/constructor/page-render/types";
+import {COMPANY_NAME} from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
@@ -18,9 +18,9 @@ const schema: PageSchema = {
             highlight: "built by professionals",
             description:
                 "Your business plan is created by real experts. AI helps with structure and speed — but every important decision is made by a human.",
-            primaryCta: { text: "Start with Expert Plan", link: "/profile" },
-            secondaryCta: { text: "Draft with AI", link: "/profile" },
-            image: "image1",
+            primaryCta: {text: "Start with Expert Plan", link: "/profile"},
+            secondaryCta: {text: "Draft with AI", link: "/profile"},
+            image: "hero1",
             align: "left",
         },
 

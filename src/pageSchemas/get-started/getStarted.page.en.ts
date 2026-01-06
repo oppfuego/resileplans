@@ -18,7 +18,7 @@ const schema: PageSchema = {
             highlight: `${COMPANY_NAME}`,
             description:
                 "This page explains how our experts work with your idea, how decisions are made, and how your business plan is created step by step.",
-            image: "image16",
+            image: "hero3",
             align: "left",
             primaryCta: { text: "Start My Request", link: "/sign-up" },
         },

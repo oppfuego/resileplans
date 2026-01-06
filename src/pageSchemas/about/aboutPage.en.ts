@@ -18,7 +18,7 @@ const schema: PageSchema = {
             highlight: "people actually trust",
             description:
                 `${COMPANY_NAME} exists to make business planning clearer, faster, and more accessible — without sacrificing quality or human judgment.`,
-            image: "image17",
+            image: "hero2",
             align: "left"
         },
 

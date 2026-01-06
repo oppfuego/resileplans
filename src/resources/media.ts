@@ -54,6 +54,10 @@ import logo3 from "@/assets/images/logo3.png";
 import logo4 from "@/assets/images/logo4.png";
 import logo5 from "@/assets/images/logo5.svg";
 
+import hero1 from "@/assets/images/hero1.jpg";
+import hero2 from "@/assets/images/hero2.jpg";
+import hero3 from "@/assets/images/hero3.jpg";
+
 export const media = {
     logo: logo,
     logo_black: logo_black,
@@ -111,6 +115,10 @@ export const media = {
     template1: template1,
     template2: template2,
     template3: template3,
+
+    hero1: hero1,
+    hero2: hero2,
+    hero3: hero3,
 
     CVMakerDemo: '/videos/cv-maker-demo.mp4',
     coachWork: '/videos/coach-work.mp4',
