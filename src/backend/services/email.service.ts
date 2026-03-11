@@ -15,7 +15,6 @@ export const emailService = {
         firstName: string;
     }) {
         const companyName = COMPANY_NAME || "Website";
-        const appUrl = ENV.APP_URL || "http://localhost:3000";
 
         const subject = `Welcome to ${companyName} 🎉`;
 
@@ -55,14 +54,7 @@ ${companyName} Team
               You can now sign in and start using the platform.
             </p>
 
-            <div style="text-align:center; margin:30px 0;">
-              <a
-                href="${escapeHtml(appUrl)}"
-                style="background:#007BFF; color:#fff; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold; display:inline-block;"
-              >
-                Open ${escapeHtml(companyName)}
-              </a>
-            </div>
+     
 
             ${
             COMPANY_EMAIL || COMPANY_PHONE || COMPANY_ADDRESS
