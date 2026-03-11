@@ -11,6 +11,7 @@ import {
 } from "@/validationSchemas/sign-up/schema";
 import FormUI from "@/components/ui/form/FormUI";
 import styles from "./SignUpPage.module.scss";
+import { COUNTRY_OPTIONS } from "@/resources/countries";
 
 export default function SignUpPage() {
     const { showAlert } = useAlert();
@@ -19,13 +20,10 @@ export default function SignUpPage() {
 
     return (
         <div className={styles.signUpWrapper}>
-            {/* 🔘 SIGN UP TYPE TOGGLE */}
             <div className={styles.toggleWrapper}>
                 <button
                     type="button"
-                    className={`${styles.toggleBtn} ${
-                        type === "user" ? styles.active : ""
-                    }`}
+                    className={`${styles.toggleBtn} ${type === "user" ? styles.active : ""}`}
                     onClick={() => setType("user")}
                 >
                     User
@@ -33,9 +31,7 @@ export default function SignUpPage() {
 
                 <button
                     type="button"
-                    className={`${styles.toggleBtn} ${
-                        type === "copywriter" ? styles.active : ""
-                    }`}
+                    className={`${styles.toggleBtn} ${type === "copywriter" ? styles.active : ""}`}
                     onClick={() => setType("copywriter")}
                 >
                     Copywriter
@@ -60,9 +56,55 @@ export default function SignUpPage() {
                         }
                         isSubmitting={isSubmitting}
                         fields={[
-                            { name: "name", type: "text", placeholder: "Name" },
-                            { name: "email", type: "email", placeholder: "Email" },
-                            { name: "password", type: "password", placeholder: "Password" },
+                            {
+                                name: "firstName",
+                                type: "text",
+                                placeholder: "First name",
+                            },
+                            {
+                                name: "lastName",
+                                type: "text",
+                                placeholder: "Last name",
+                            },
+                            {
+                                name: "email",
+                                type: "email",
+                                placeholder: "Email",
+                                colSpan: "full",
+                            },
+                            {
+                                name: "password",
+                                type: "password",
+                                placeholder: "Password",
+                                colSpan: "full",
+                            },
+                            {
+                                name: "phone",
+                                type: "tel",
+                                placeholder: "Phone number",
+                            },
+                            {
+                                name: "addressZip",
+                                type: "text",
+                                placeholder: "Postal code",
+                            },
+                            {
+                                name: "addressStreet",
+                                type: "text",
+                                placeholder: "Address",
+                                colSpan: "full",
+                            },
+                            {
+                                name: "addressCity",
+                                type: "text",
+                                placeholder: "City",
+                            },
+                            {
+                                name: "addressCountry",
+                                type: "select",
+                                placeholder: "Country",
+                                options: COUNTRY_OPTIONS,
+                            },
                         ]}
                         submitLabel={
                             type === "copywriter"

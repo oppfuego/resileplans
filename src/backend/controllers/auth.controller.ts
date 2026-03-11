@@ -1,26 +1,52 @@
 import { connectDB } from "../config/db";
 import { authService } from "../services/auth.service";
-import { User } from "../models/user.model";
-import { AuthResponse, AuthError, LogoutResponse } from "@/backend/types/auth.types";
+import { LogoutResponse } from "@/backend/types/auth.types";
 import { UserType } from "@/backend/types/user.types";
-import { signAccessToken } from "../utils/jwt";
 
 export const authController = {
-    async register(body: { name: string; email: string; password: string }) {
+    async register(body: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+        phone: string;
+        addressStreet: string;
+        addressCity: string;
+        addressCountry: string;
+        addressZip: string;
+    }) {
         await connectDB();
+
         const { user, accessToken, refreshToken } = await authService.register(body);
-        return { user: toUser(user), tokens: { accessToken, refreshToken } };
+
+        return {
+            user: toUser(user),
+            tokens: { accessToken, refreshToken },
+        };
     },
 
     async login(body: { email: string; password: string }, userAgent?: string, ip?: string) {
         await connectDB();
-        const { user, accessToken, refreshToken } = await authService.login(body.email, body.password, userAgent, ip);
+
+        const { user, accessToken, refreshToken } = await authService.login(
+            body.email,
+            body.password,
+            userAgent,
+            ip
+        );
+
         return { user: toUser(user), tokens: { accessToken, refreshToken } };
     },
 
     async refresh(refreshJWT: string, userAgent?: string, ip?: string) {
         await connectDB();
-        const { user, accessToken, refreshToken } = await authService.refresh(refreshJWT, userAgent, ip);
+
+        const { user, accessToken, refreshToken } = await authService.refresh(
+            refreshJWT,
+            userAgent,
+            ip
+        );
+
         return { user: toUser(user), tokens: { accessToken, refreshToken } };
     },
 
@@ -46,8 +72,16 @@ export const authController = {
 function toUser(u: any): UserType {
     return {
         _id: u._id.toString(),
-        name: u.name,
+        firstName: u.firstName,
+        lastName: u.lastName,
         email: u.email,
+        phone: u.phone,
+        address: {
+            street: u.address?.street || "",
+            city: u.address?.city || "",
+            country: u.address?.country || "",
+            zip: u.address?.zip || "",
+        },
         role: u.role,
         tokens: u.tokens,
         createdAt: u.createdAt,
