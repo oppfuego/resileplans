@@ -266,17 +266,32 @@
 
 }
 
-.paymentIcon {
-  font-size: 42px;
-  opacity: 0.9;
-  transition: all 0.2s ease-in-out;
-  color: var(--text-inverse);
-  cursor: pointer;
+.paymentCardLogo {
+  width: auto;
+  height: 42px;
+  max-width: 64px;
+  opacity: 0.95;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  object-fit: contain;
+  cursor: default;
 
   &:hover {
     opacity: 1;
-    transform: scale(1.1);
-    color: var(--tertiary-color);
+    transform: scale(1.04);
+  }
+}
+
+.paymentComplianceLogo {
+  width: auto;
+  height: 42px;
+  max-width: 116px;
+  opacity: 0.95;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  object-fit: contain;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.04);
   }
 }
 
@@ -446,4 +461,3 @@
     justify-content: center;
   }
 }
-
