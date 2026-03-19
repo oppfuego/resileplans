@@ -24,11 +24,22 @@ export async function POST(req: NextRequest) {
         console.error("REGISTER API ERROR STACK:", e?.stack);
 
         const msg = e?.message || "Registration error";
-        const code = msg.includes("registered") ? 400 : 500;
+        const validationMessages = [
+            "required",
+            "valid email",
+            "supported",
+            "Date of birth",
+            "Password is required",
+        ];
+        const code =
+            msg.includes("registered") ||
+            validationMessages.some((entry) => msg.includes(entry))
+                ? 400
+                : 500;
 
         return NextResponse.json(
             {
-                type: code === 400 ? "EmailAlreadyRegistered" : "RegistrationError",
+                type: code === 400 ? "RegistrationValidationError" : "RegistrationError",
                 message: msg,
             },
             { status: code }

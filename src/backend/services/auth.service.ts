@@ -6,6 +6,7 @@ import { sha256, randomToken } from "../utils/crypto";
 import { signAccessToken, signRefreshToken } from "../utils/jwt";
 import { ENV } from "../config/env";
 import { emailService } from "@/backend/services/email.service";
+import { isAllowedCountry } from "@/resources/countries";
 
 function parseDurationToSec(input: string): number {
     const m = input.match(/^(\d+)([smhd])?$/i);
@@ -19,6 +20,84 @@ function parseDurationToSec(input: string): number {
 }
 
 const REFRESH_TTL_SEC = parseDurationToSec(ENV.REFRESH_TOKEN_EXPIRES);
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DOB_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+
+function trimRequiredString(value: unknown, fieldLabel: string): string {
+    if (typeof value !== "string" || !value.trim()) {
+        throw new Error(`${fieldLabel} is required`);
+    }
+
+    return value.trim();
+}
+
+function normalizeDateOfBirth(value: unknown): Date {
+    const normalized = trimRequiredString(value, "Date of birth");
+
+    if (!DOB_REGEX.test(normalized)) {
+        throw new Error("Date of birth must be in YYYY-MM-DD format");
+    }
+
+    const date = new Date(`${normalized}T00:00:00.000Z`);
+    if (Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== normalized) {
+        throw new Error("Date of birth must be a real date");
+    }
+
+    if (date > new Date()) {
+        throw new Error("Date of birth cannot be in the future");
+    }
+
+    return date;
+}
+
+function normalizeRegistrationData(data: {
+    firstName: unknown;
+    lastName: unknown;
+    email: unknown;
+    password: unknown;
+    phoneNumber: unknown;
+    dateOfBirth: unknown;
+    street: unknown;
+    city: unknown;
+    country: unknown;
+    postCode: unknown;
+}) {
+    const firstName = trimRequiredString(data.firstName, "First name");
+    const lastName = trimRequiredString(data.lastName, "Last name");
+    const email = trimRequiredString(data.email, "Email").toLowerCase();
+    const password = typeof data.password === "string" ? data.password : "";
+    const phoneNumber = trimRequiredString(data.phoneNumber, "Phone number");
+    const dateOfBirth = normalizeDateOfBirth(data.dateOfBirth);
+    const street = trimRequiredString(data.street, "Street");
+    const city = trimRequiredString(data.city, "City");
+    const country = trimRequiredString(data.country, "Country");
+    const postCode = trimRequiredString(data.postCode, "Post code");
+
+    if (!EMAIL_REGEX.test(email)) {
+        throw new Error("Enter a valid email address");
+    }
+
+    if (!password) {
+        throw new Error("Password is required");
+    }
+
+    if (!isAllowedCountry(country)) {
+        throw new Error("Selected country is not supported");
+    }
+
+    return {
+        firstName,
+        lastName,
+        email,
+        password,
+        phoneNumber,
+        dateOfBirth,
+        street,
+        city,
+        country,
+        postCode,
+    };
+}
 
 export const authService = {
     async register(data: {
@@ -26,30 +105,34 @@ export const authService = {
         lastName: string;
         email: string;
         password: string;
-        phone: string;
-        addressStreet: string;
-        addressCity: string;
-        addressCountry: string;
-        addressZip: string;
+        phoneNumber: string;
+        dateOfBirth: string;
+        street: string;
+        city: string;
+        country: string;
+        postCode: string;
     }) {
-        const normalizedEmail = data.email.toLowerCase().trim();
+        const normalizedData = normalizeRegistrationData(data);
 
-        const existing = await User.findOne({ email: normalizedEmail });
+        const existing = await User.findOne({ email: normalizedData.email });
         if (existing) throw new Error("Email already registered");
 
-        const hashed = await bcrypt.hash(data.password, 12);
+        const hashed = await bcrypt.hash(normalizedData.password, 12);
 
         const user = await User.create({
-            firstName: data.firstName.trim(),
-            lastName: data.lastName.trim(),
-            email: normalizedEmail,
+            firstName: normalizedData.firstName,
+            lastName: normalizedData.lastName,
+            email: normalizedData.email,
             password: hashed,
-            phone: data.phone.trim(),
+            phoneNumber: normalizedData.phoneNumber,
+            phone: normalizedData.phoneNumber,
+            dateOfBirth: normalizedData.dateOfBirth,
             address: {
-                street: data.addressStreet.trim(),
-                city: data.addressCity.trim(),
-                country: data.addressCountry.trim(),
-                zip: data.addressZip.trim(),
+                street: normalizedData.street,
+                city: normalizedData.city,
+                country: normalizedData.country,
+                postCode: normalizedData.postCode,
+                zip: normalizedData.postCode,
             },
         });
 

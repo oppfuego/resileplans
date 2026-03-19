@@ -7,8 +7,11 @@ export async function POST(req: Request) {
     const text = `
 New copywriter signup
 
-Name: ${body.name}
+Name: ${[body.firstName, body.lastName].filter(Boolean).join(" ")}
 Email: ${body.email}
+Phone: ${body.phoneNumber}
+Date of birth: ${body.dateOfBirth}
+Address: ${body.street}, ${body.city}, ${body.country}, ${body.postCode}
 
 The user signed up using the "Copywriter" option.
 `;

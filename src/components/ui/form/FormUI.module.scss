@@ -74,12 +74,34 @@
   min-width: 0;
 }
 
+.fieldLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .fullWidth {
   grid-column: 1 / -1;
 }
 
 .selectWrapper {
+  position: relative;
   width: 100%;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--text-secondary);
+    border-bottom: 2px solid var(--text-secondary);
+    pointer-events: none;
+    transform: translateY(-65%) rotate(45deg);
+  }
 }
 
 .selectField {
@@ -89,11 +111,12 @@
   border: 1px solid var(--border-color);
   background: var(--background-color);
   color: var(--text-primary);
-  padding: 0 14px;
+  padding: 0 42px 0 14px;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   appearance: none;
+  -webkit-appearance: none;
 
   &:focus {
     border-color: var(--primary-color);
@@ -103,6 +126,11 @@
   option {
     color: #111;
   }
+}
+
+.selectFieldError {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.08);
 }
 
 .termsBlock {

@@ -1,61 +1,136 @@
 import { AlertColor } from "@mui/material/Alert";
+import { isAllowedCountry } from "@/resources/countries";
 
 export type SignUpType = "user" | "copywriter";
 
-export const signUpInitialValues = {
+export interface SignUpValues {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
+    email: string;
+    phoneNumber: string;
+    street: string;
+    city: string;
+    country: string;
+    postCode: string;
+    password: string;
+    confirmPassword: string;
+    terms: boolean;
+    signupType: SignUpType;
+}
+
+export const signUpInitialValues: SignUpValues = {
     firstName: "",
     lastName: "",
+    dateOfBirth: "",
     email: "",
+    phoneNumber: "",
+    street: "",
+    city: "",
+    country: "",
+    postCode: "",
     password: "",
-    phone: "",
-    addressStreet: "",
-    addressCity: "",
-    addressCountry: "",
-    addressZip: "",
+    confirmPassword: "",
     terms: false,
-    signupType: "user" as SignUpType,
+    signupType: "user",
 };
 
-type SignUpErrors = Partial<Record<keyof typeof signUpInitialValues, string>>;
+type SignUpErrors = Partial<Record<keyof SignUpValues, string>>;
 
-export const signUpValidation = (values: typeof signUpInitialValues) => {
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DOB_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+
+function getTrimmedValue(value: string) {
+    return value.trim();
+}
+
+function isRealDate(value: string) {
+    if (!DOB_REGEX.test(value)) return false;
+
+    const parsed = new Date(`${value}T00:00:00.000Z`);
+    if (Number.isNaN(parsed.getTime())) return false;
+
+    return parsed.toISOString().slice(0, 10) === value;
+}
+
+export const signUpValidation = (values: SignUpValues) => {
     const errors: SignUpErrors = {};
 
-    if (!values.firstName) errors.firstName = "Required";
-    if (!values.lastName) errors.lastName = "Required";
-    if (!values.email) errors.email = "Required";
-    if (!values.password) errors.password = "Required";
-    if (!values.phone) errors.phone = "Required";
-    if (!values.addressStreet) errors.addressStreet = "Required";
-    if (!values.addressCity) errors.addressCity = "Required";
-    if (!values.addressCountry) errors.addressCountry = "Required";
-    if (!values.addressZip) errors.addressZip = "Required";
+    if (!getTrimmedValue(values.firstName)) errors.firstName = "First name is required";
+    if (!getTrimmedValue(values.lastName)) errors.lastName = "Last name is required";
+
+    const dateOfBirth = getTrimmedValue(values.dateOfBirth);
+    if (!dateOfBirth) {
+        errors.dateOfBirth = "Date of birth is required";
+    } else if (!isRealDate(dateOfBirth)) {
+        errors.dateOfBirth = "Enter a valid date of birth";
+    } else if (new Date(`${dateOfBirth}T00:00:00.000Z`) > new Date()) {
+        errors.dateOfBirth = "Date of birth cannot be in the future";
+    }
+
+    const email = getTrimmedValue(values.email);
+    if (!email) {
+        errors.email = "Email is required";
+    } else if (!EMAIL_REGEX.test(email)) {
+        errors.email = "Enter a valid email address";
+    }
+
+    if (!getTrimmedValue(values.phoneNumber)) {
+        errors.phoneNumber = "Phone number is required";
+    }
+
+    if (!getTrimmedValue(values.street)) errors.street = "Street is required";
+    if (!getTrimmedValue(values.city)) errors.city = "City is required";
+
+    const country = getTrimmedValue(values.country);
+    if (!country) {
+        errors.country = "Country is required";
+    } else if (!isAllowedCountry(country)) {
+        errors.country = "Select a supported country";
+    }
+
+    if (!getTrimmedValue(values.postCode)) errors.postCode = "Post code is required";
+
+    if (!values.password) {
+        errors.password = "Password is required";
+    }
+
+    if (!values.confirmPassword) {
+        errors.confirmPassword = "Confirm your password";
+    } else if (values.confirmPassword !== values.password) {
+        errors.confirmPassword = "Passwords do not match";
+    }
+
     if (!values.terms) errors.terms = "You must agree to the Terms and Conditions";
 
     return errors;
 };
 
 export const signUpOnSubmit = async (
-    values: typeof signUpInitialValues,
+    values: SignUpValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
     showAlert: (msg: string, desc?: string, severity?: AlertColor) => void,
     router: { replace: (url: string) => void; refresh: () => void }
 ) => {
     try {
+        const payload = {
+            firstName: getTrimmedValue(values.firstName),
+            lastName: getTrimmedValue(values.lastName),
+            dateOfBirth: values.dateOfBirth,
+            email: getTrimmedValue(values.email),
+            phoneNumber: getTrimmedValue(values.phoneNumber),
+            street: getTrimmedValue(values.street),
+            city: getTrimmedValue(values.city),
+            country: getTrimmedValue(values.country),
+            postCode: getTrimmedValue(values.postCode),
+            password: values.password,
+        };
+
         const res = await fetch("/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                firstName: values.firstName,
-                lastName: values.lastName,
-                email: values.email,
-                password: values.password,
-                phone: values.phone,
-                addressStreet: values.addressStreet,
-                addressCity: values.addressCity,
-                addressCountry: values.addressCountry,
-                addressZip: values.addressZip,
-            }),
+            credentials: "include",
+            body: JSON.stringify(payload),
         });
 
         const data = await res.json();
@@ -69,16 +144,7 @@ export const signUpOnSubmit = async (
             await fetch("/api/copywriter-notify", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    firstName: values.firstName,
-                    lastName: values.lastName,
-                    email: values.email,
-                    phone: values.phone,
-                    addressStreet: values.addressStreet,
-                    addressCity: values.addressCity,
-                    addressCountry: values.addressCountry,
-                    addressZip: values.addressZip,
-                }),
+                body: JSON.stringify(payload),
             });
         }
 

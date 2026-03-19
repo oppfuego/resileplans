@@ -1,9 +1,8 @@
 import { connectDB } from "../config/db";
 import { userService } from "../services/user.service";
 import { UserType } from "@/backend/types/user.types";
-import { sendEmail } from "@/backend/utils/sendEmail";
 import { transactionService } from "@/backend/services/transaction.service";
-import { COMPANY_NAME } from "@/resources/constants";
+import { emailService } from "@/backend/services/email.service";
 
 export const userController = {
     async buyTokens(userId: string, amount: number): Promise<UserType> {
@@ -13,16 +12,27 @@ export const userController = {
 
         await transactionService.record(user._id, user.email, amount, "add", user.tokens);
 
-        sendEmail(
-            user.email,
-            "Tokens Purchased",
-            `You have successfully purchased ${amount} tokens. Your new balance is ${user.tokens} tokens.`
-        );
+        try {
+            await emailService.sendTokenPurchaseConfirmationEmail({
+                email: user.email,
+                firstName: user.firstName,
+                tokensAdded: amount,
+                balanceAfter: user.tokens,
+                transactionDate: new Date(),
+            });
+        } catch (error) {
+            console.error("[userController.buyTokens] Confirmation email failed", {
+                userId,
+                email: user.email,
+                amount,
+                error,
+            });
+        }
 
         return formatUser(user);
     },
 
-    async spendTokens(userId: string, amount: number, reason?: string): Promise<UserType> {
+    async spendTokens(userId: string, amount: number, _reason?: string): Promise<UserType> {
         await connectDB();
 
         const user = await userService.getUserById(userId);
@@ -34,28 +44,27 @@ export const userController = {
 
         await transactionService.record(user._id, user.email, amount, "spend", user.tokens);
 
-        sendEmail(
-            user.email,
-            "Tokens Spent",
-            `You have spent ${amount} tokens${reason ? ` for ${reason}` : ""}. Your new balance is ${user.tokens} tokens.`
-        );
-
         return formatUser(user);
     },
 };
 
 function formatUser(user: any): UserType {
+    const postCode = user.address?.postCode || user.address?.zip || "";
+    const phoneNumber = user.phoneNumber || user.phone || "";
+
     return {
         _id: user._id.toString(),
+        name: [user.firstName, user.lastName].filter(Boolean).join(" "),
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        phone: user.phone,
+        phoneNumber,
+        dateOfBirth: user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().slice(0, 10) : null,
         address: {
             street: user.address?.street || "",
             city: user.address?.city || "",
             country: user.address?.country || "",
-            zip: user.address?.zip || "",
+            postCode,
         },
         role: user.role,
         tokens: user.tokens,

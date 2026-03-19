@@ -1,5 +1,12 @@
 import { Document, Types } from "mongoose";
 
+export interface UserAddress {
+    street: string;
+    city: string;
+    country: string;
+    postCode: string;
+}
+
 export interface IUserSchema extends Document {
     _id: Types.ObjectId;
 
@@ -9,13 +16,16 @@ export interface IUserSchema extends Document {
     email: string;
     password: string;
 
-    phone: string;
+    phoneNumber?: string;
+    phone?: string;
+    dateOfBirth?: Date | null;
 
     address: {
         street: string;
         city: string;
         country: string;
-        zip: string;
+        postCode?: string;
+        zip?: string;
     };
 
     tokens: number;
@@ -27,19 +37,15 @@ export interface IUserSchema extends Document {
 
 export interface UserType {
     _id: string;
+    name: string;
 
     firstName: string;
     lastName: string;
 
     email: string;
-    phone: string;
-
-    address: {
-        street: string;
-        city: string;
-        country: string;
-        zip: string;
-    };
+    phoneNumber: string;
+    dateOfBirth: string | null;
+    address: UserAddress;
 
     tokens: number;
     role: "user" | "admin";

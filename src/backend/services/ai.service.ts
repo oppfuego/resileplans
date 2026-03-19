@@ -2,6 +2,7 @@ import { AiOrder } from "../models/aiOrder.model";
 import { User } from "../models/user.model";
 import { ENV } from "../config/env";
 import OpenAI from "openai";
+import { emailService } from "./email.service";
 
 const openai = new OpenAI({ apiKey: ENV.OPENAI_API_KEY });
 
@@ -56,6 +57,29 @@ export const aiService = {
             prompt,
             response: polishedText.trim(),
         });
+
+        try {
+            await emailService.sendOrderConfirmationEmail({
+                email: user.email,
+                firstName: user.firstName,
+                serviceName: "AI order",
+                orderId: order._id.toString(),
+                tokensUsed: finalCost,
+                transactionDate: order.createdAt || new Date(),
+                summary: "Your AI request finished successfully and the generated result is now available in your account.",
+                details: [
+                    { label: "Service", value: "AI prompt generation" },
+                    { label: "Prompt", value: prompt.slice(0, 120) },
+                ],
+            });
+        } catch (error) {
+            console.error("[aiService.processPrompt] Confirmation email failed", {
+                userId,
+                email,
+                orderId: order._id?.toString(),
+                error,
+            });
+        }
 
         return order;
     },

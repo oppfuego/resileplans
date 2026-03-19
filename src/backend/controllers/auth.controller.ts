@@ -9,11 +9,12 @@ export const authController = {
         lastName: string;
         email: string;
         password: string;
-        phone: string;
-        addressStreet: string;
-        addressCity: string;
-        addressCountry: string;
-        addressZip: string;
+        phoneNumber: string;
+        dateOfBirth: string;
+        street: string;
+        city: string;
+        country: string;
+        postCode: string;
     }) {
         await connectDB();
 
@@ -70,17 +71,22 @@ export const authController = {
 };
 
 function toUser(u: any): UserType {
+    const postCode = u.address?.postCode || u.address?.zip || "";
+    const phoneNumber = u.phoneNumber || u.phone || "";
+
     return {
         _id: u._id.toString(),
+        name: [u.firstName, u.lastName].filter(Boolean).join(" "),
         firstName: u.firstName,
         lastName: u.lastName,
         email: u.email,
-        phone: u.phone,
+        phoneNumber,
+        dateOfBirth: u.dateOfBirth ? new Date(u.dateOfBirth).toISOString().slice(0, 10) : null,
         address: {
             street: u.address?.street || "",
             city: u.address?.city || "",
             country: u.address?.country || "",
-            zip: u.address?.zip || "",
+            postCode,
         },
         role: u.role,
         tokens: u.tokens,

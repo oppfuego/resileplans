@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Form, Field, ErrorMessage, useFormikContext } from "formik";
+import { Form, Field, ErrorMessage, useField, useFormikContext } from "formik";
 import styles from "./FormUI.module.scss";
 import InputUI from "@/components/ui/input/InputUI";
 import ButtonUI from "@/components/ui/button/ButtonUI";
@@ -14,6 +14,7 @@ interface FieldOption {
 interface FieldConfig {
     name: string;
     type: string;
+    label?: string;
     placeholder?: string;
     options?: FieldOption[];
     colSpan?: "full";
@@ -32,6 +33,41 @@ const defaultFields: FieldConfig[] = [
     { name: "email", type: "email", placeholder: "Email" },
     { name: "password", type: "password", placeholder: "Password" },
 ];
+
+const SelectField = ({
+    name,
+    placeholder,
+    options = [],
+}: Pick<FieldConfig, "name" | "placeholder" | "options">) => {
+    const [field, meta] = useField(name);
+    const hasError = Boolean(meta.touched && meta.error);
+
+    return (
+        <>
+            <div className={styles.selectWrapper}>
+                <select
+                    {...field}
+                    id={name}
+                    className={`${styles.selectField} ${hasError ? styles.selectFieldError : ""}`}
+                    aria-invalid={hasError}
+                >
+                    <option value="">{placeholder || "Select option"}</option>
+                    {options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <ErrorMessage
+                name={name}
+                component="div"
+                className={styles.errorText}
+            />
+        </>
+    );
+};
 
 const FormUI: React.FC<FormUIProps> = ({
                                            title,
@@ -63,27 +99,16 @@ const FormUI: React.FC<FormUIProps> = ({
                             if (field.type === "select") {
                                 return (
                                     <div key={field.name} className={fieldClassName}>
-                                        <div className={styles.selectWrapper}>
-                                            <Field
-                                                as="select"
-                                                name={field.name}
-                                                className={styles.selectField}
-                                            >
-                                                <option value="">
-                                                    {field.placeholder || "Select option"}
-                                                </option>
-                                                {field.options?.map((option) => (
-                                                    <option key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </option>
-                                                ))}
-                                            </Field>
-                                        </div>
+                                        {field.label && (
+                                            <label htmlFor={field.name} className={styles.fieldLabel}>
+                                                {field.label}
+                                            </label>
+                                        )}
 
-                                        <ErrorMessage
+                                        <SelectField
                                             name={field.name}
-                                            component="div"
-                                            className={styles.errorText}
+                                            placeholder={field.placeholder}
+                                            options={field.options}
                                         />
                                     </div>
                                 );
@@ -91,7 +116,18 @@ const FormUI: React.FC<FormUIProps> = ({
 
                             return (
                                 <div key={field.name} className={fieldClassName}>
-                                    <InputUI {...field} formik />
+                                    {field.label && (
+                                        <label htmlFor={field.name} className={styles.fieldLabel}>
+                                            {field.label}
+                                        </label>
+                                    )}
+                                    <InputUI
+                                        id={field.name}
+                                        name={field.name}
+                                        type={field.type as any}
+                                        placeholder={field.placeholder}
+                                        formik
+                                    />
                                 </div>
                             );
                         })}
