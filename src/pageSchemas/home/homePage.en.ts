@@ -196,28 +196,28 @@ const schema: PageSchema = {
                 "Feedback from founders and professionals who worked directly with our experts.",
             testimonials: [
                 {
-                    name: "Daniel Wright",
+                    name: "@dan.builds",
                     role: "Founder, SaaS Startup",
                     image: "review5",
                     text: "This felt like working with a consultant, not a generator. The logic finally made sense to investors.",
                     rating: 5,
                 },
                 {
-                    name: "Michael Andersen",
+                    name: "@mike.ops",
                     role: "CEO, Logistics Company",
                     image: "review8",
                     text: "They challenged our assumptions and improved the plan instead of just formatting it.",
                     rating: 5,
                 },
                 {
-                    name: "Thomas Keller",
+                    name: "@tk_manufacture",
                     role: "Managing Director, Manufacturing",
                     image: "review4",
                     text: "Clear numbers, realistic thinking, and strong explanations. Definitely not AI fluff.",
                     rating: 5,
                 },
                 {
-                    name: "Laura Mitchell",
+                    name: "@laura.growth",
                     role: "Marketing Lead, E-commerce Brand",
                     image: "review7",
                     text: "The expert explained everything clearly. I finally understood our margins and limits.",

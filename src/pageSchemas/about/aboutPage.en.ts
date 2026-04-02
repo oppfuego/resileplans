@@ -180,49 +180,36 @@ const schema: PageSchema = {
         {
             type: "custom",
             component: "TestimonialsSlider",
-            title: "What Our Clients Say",
-            description: "Feedback from businesses that worked with our team and saw measurable results.",
+            title: "What clients say",
+            description:
+                "Feedback from founders and professionals who worked directly with our experts.",
             testimonials: [
                 {
-                    name: "Daniel Wright",
+                    name: "@dan.builds",
                     role: "Founder, SaaS Startup",
                     image: "review5",
-                    text: "The planning process was structured and transparent. We finally had numbers and logic investors could actually understand.",
+                    text: "This felt like working with a consultant, not a generator. The logic finally made sense to investors.",
                     rating: 5,
                 },
                 {
-                    name: "Michael Andersen",
+                    name: "@mike.ops",
                     role: "CEO, Logistics Company",
                     image: "review8",
-                    text: "They approached our case like partners, not vendors. The business plan helped us restructure operations and prepare for negotiations.",
+                    text: "They challenged our assumptions and improved the plan instead of just formatting it.",
                     rating: 5,
                 },
                 {
-                    name: "Thomas Keller",
+                    name: "@tk_manufacture",
                     role: "Managing Director, Manufacturing",
                     image: "review4",
-                    text: "Clear communication, strong financial logic, and realistic assumptions. This was not a template — it was tailored to our business.",
+                    text: "Clear numbers, realistic thinking, and strong explanations. Definitely not AI fluff.",
                     rating: 5,
                 },
                 {
-                    name: "Laura Mitchell",
+                    name: "@laura.growth",
                     role: "Marketing Lead, E-commerce Brand",
                     image: "review7",
-                    text: "The expert explained everything in plain language. I finally understood our margins and growth limits.",
-                    rating: 5,
-                },
-                {
-                    name: "Sophie Laurent",
-                    role: "Co-founder, EdTech Project",
-                    image: "review6",
-                    text: "We used the plan for a grant application. The structure and clarity made a huge difference for reviewers.",
-                    rating: 5,
-                },
-                {
-                    name: "Emily Carter",
-                    role: "Business Consultant",
-                    image: "review9",
-                    text: "I now use their process as a base for my own clients. It saves weeks of work and delivers consistent quality.",
+                    text: "The expert explained everything clearly. I finally understood our margins and limits.",
                     rating: 5,
                 },
             ],
@@ -237,21 +224,21 @@ const schema: PageSchema = {
                 "A team of analysts, engineers, and designers working toward one shared goal.",
             members: [
                 {
-                    name: "Markus Weber",
+                    name: "@mark.strategy",
                     role: "Strategy Lead",
                     bio:
                         "Former startup consultant with over 200 business plans delivered across multiple industries.",
                     image: "team4",
                 },
                 {
-                    name: "Daniel Chen",
+                    name: "@daniel.ai",
                     role: "AI Engineering Lead",
                     bio:
                         "Builds structured generation systems and financial modeling logic for complex business cases.",
                     image: "team5",
                 },
                 {
-                    name: "Elena Rossi",
+                    name: "@elena.ux",
                     role: "Product & UX Lead",
                     bio:
                         "Designs clarity-first interfaces that make complex business planning easy to understand.",

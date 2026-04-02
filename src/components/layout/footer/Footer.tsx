@@ -12,6 +12,7 @@ import visaLogo from "@/assets/cards/visa.png";
 import mastercardLogo from "@/assets/cards/mastercard.png";
 import pciDssLogo from "@/assets/cards/pci-dss-compliant-logo-vector.svg";
 import {
+    FaFacebook,
     FaInstagram,
     FaLinkedinIn,
 } from "react-icons/fa";
@@ -200,13 +201,13 @@ const Footer: React.FC = () => {
                         <div className={styles["footer__column"]}>
                             <div className={styles["footer__column-title"]}>Follow Us</div>
                             <div className={styles["footer__socials"]}>
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                                <a href="https://www.instagram.com/resileplans?igsh=MXE2d3RrZ3ltbXkyeg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer"
                                    aria-label="Instagram" className={styles["footer__social-link"]}>
                                     <FaInstagram/>
                                 </a>
-                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
-                                   aria-label="LinkedIn" className={styles["footer__social-link"]}>
-                                    <FaLinkedinIn/>
+                                <a href="https://www.facebook.com/profile.php?id=61577823056439" target="_blank" rel="noopener noreferrer"
+                                   aria-label="facebook" className={styles["footer__social-link"]}>
+                                    <FaFacebook/>
                                 </a>
                             </div>
                         </div>
