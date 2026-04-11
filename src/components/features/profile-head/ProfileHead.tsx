@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@/context/UserContext";
+import { LogoutButton } from "@/components/ui/logout-button/LogoutButton";
 import styles from "./ProfileHead.module.scss";
 
 const ProfileHead = () => {
@@ -19,6 +20,9 @@ const ProfileHead = () => {
             <div className={styles.right}>
                 <span className={styles.label}>Signed in as</span>
                 <strong>{user?.email}</strong>
+                <div className={styles.actions}>
+                    <LogoutButton />
+                </div>
             </div>
         </header>
     );
