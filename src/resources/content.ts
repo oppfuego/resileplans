@@ -21,6 +21,7 @@ export const headerContent = {
         {label: "Faq", href: "/faq"},
         {label: "Success", href: "/success"},
         {label: "Resources", href: "/resources"},
+        {label: "Dashboard", href: "/dashboard"},
     ]
 };
 
