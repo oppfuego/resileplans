@@ -3,8 +3,9 @@ import React from "react";
 import { Document, Page, Text, View, pdf } from "@react-pdf/renderer";
 import { UniversalOrderType } from "@/backend/types/universal.types";
 import { pdfStylesBusiness } from "./pdfTheme";
+import { isUniversalOrderDownloadUnlocked } from "@/utils/universalOrderAvailability";
 
-type PDFStyles = any;
+type PDFStyles = typeof pdfStylesBusiness;
 const styles: PDFStyles = pdfStylesBusiness;
 
 type Block =
@@ -60,7 +61,7 @@ function renderInlineMarkdown(text: string, styles: PDFStyles) {
 
 // 📦 Парсинг у блоки (заголовки, абзаци, списки)
 function parseBlocks(raw: string): Block[] {
-    let cleaned = cleanText(raw)
+    const cleaned = cleanText(raw)
         .replace(/^[-_*]{3,}$/gm, "") // прибрати роздільники --- ___ ***
         .replace(/^#{1,3}([^#\s])/gm, (_, c) => `# ${c}`) // прибрати заголовки без пробілу
         .replace(/\uFEFF/g, "")
@@ -71,7 +72,7 @@ function parseBlocks(raw: string): Block[] {
 
     let i = 0;
     while (i < lines.length) {
-        let line = lines[i];
+        const line = lines[i];
         if (!line || !line.trim()) {
             i++;
             continue;
@@ -225,7 +226,7 @@ function renderExtrasContent(text: string, styles: PDFStyles): React.ReactNode {
                 i++;
                 continue;
             }
-            if ((next.type === "ul" || next.type === "ol") && (next as any).items?.length) {
+            if ((next.type === "ul" || next.type === "ol") && next.items.length) {
                 out.push(
                     <View key={`grp-${i}`} wrap={false}>
                         {renderBlock(b, `h-${i}`)}
@@ -393,6 +394,10 @@ function renderBusinessPlanReviewed(order: UniversalOrderType, styles: PDFStyles
 
 // === Основна функція генерації PDF
 export async function downloadBusinessPDF(order: UniversalOrderType) {
+    if (!isUniversalOrderDownloadUnlocked(order)) {
+        throw new Error("This reviewed plan is not available for download yet.");
+    }
+
     const isReviewed = order.planType === "reviewed";
     const businessName = cleanText(order.fields.businessName || "Business");
 

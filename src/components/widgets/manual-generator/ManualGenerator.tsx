@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./ManualGenerator.module.scss";
 import { useAlert } from "@/context/AlertContext";
 import { useUser } from "@/context/UserContext";
+import { useAllOrders } from "@/context/AllOrdersContext";
 
 const BASE_COST = 40;
 
@@ -68,6 +69,7 @@ const stepVariants = {
 const BusinessGeneratorForm = () => {
     const { showAlert } = useAlert();
     const user = useUser();
+    const { refreshOrders } = useAllOrders();
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
 
@@ -142,8 +144,16 @@ const BusinessGeneratorForm = () => {
                     });
                     const data = await res.json();
 
-                    if (res.ok)
-                        showAlert("Success", "Business plan generated successfully!", "success");
+                    if (res.ok) {
+                        await refreshOrders();
+                        showAlert(
+                            "Success",
+                            values.planType === "reviewed"
+                                ? "Order received. Your plan is being reviewed by a specialist and will be available for download later."
+                                : "Business plan generated successfully and is ready for download.",
+                            "success"
+                        );
+                    }
                     else showAlert("Error", data.message || "Failed to generate", "error");
                 } catch {
                     showAlert("Error", "Network or server issue", "error");

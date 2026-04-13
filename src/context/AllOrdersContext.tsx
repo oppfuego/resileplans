@@ -2,18 +2,10 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { CVOrderType } from "@/backend/types/cv.types";
-
-export interface AiOrder {
-    _id: string;
-    userId: string;
-    email: string;
-    prompt: string;
-    response: string;
-    createdAt: string;
-}
+import { UniversalOrderType } from "@/backend/types/universal.types";
 
 interface AllOrdersContextType {
-    aiOrders: AiOrder[];
+    aiOrders: UniversalOrderType[];
     cvOrders: CVOrderType[];
     refreshOrders: () => Promise<void>;
     loading: boolean;
@@ -29,7 +21,7 @@ const AllOrdersContext = createContext<AllOrdersContextType>({
 export const useAllOrders = () => useContext(AllOrdersContext);
 
 export const AllOrdersProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [aiOrders, setAiOrders] = useState<AiOrder[]>([]);
+    const [aiOrders, setAiOrders] = useState<UniversalOrderType[]>([]);
     const [cvOrders, setCvOrders] = useState<CVOrderType[]>([]);
     const [loading, setLoading] = useState(false);
 
@@ -57,8 +49,9 @@ export const AllOrdersProvider: React.FC<{ children: React.ReactNode }> = ({ chi
                 const normalizedAi = Array.isArray(dataAi) ? dataAi : dataAi.orders;
                 setAiOrders(Array.isArray(normalizedAi) ? normalizedAi : []);
             }
-        } catch (err: any) {
-            console.error("❌ [AllOrdersContext] Error fetching orders:", err.message);
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : "Unknown error";
+            console.error("❌ [AllOrdersContext] Error fetching orders:", message);
             setAiOrders([]);
             setCvOrders([]);
         } finally {

@@ -5,21 +5,24 @@ export interface UniversalOrderType {
     userId: Types.ObjectId;
     email: string;
     category: string;
-    fields: Record<string, any>;
+    fields: Record<string, unknown>;
     extras: string[];
     totalTokens: number;
     planType: "default" | "reviewed";
     language?: string;
     response: string;
     extrasData: Record<string, string>;
-    status: "pending" | "ready";
+    status: "pending" | "paid" | "in_review" | "ready";
     readyAt: Date;
+    reviewReleaseAt?: Date;
+    availableAt?: Date;
+    isDownloadUnlocked?: boolean;
     createdAt: Date;
 }
 
 export interface CreateUniversalOrderRequest {
     category: string;
-    fields: Record<string, any>;
+    fields: Record<string, unknown>;
     extras: string[];
     totalTokens: number;
     planType: "default" | "reviewed";

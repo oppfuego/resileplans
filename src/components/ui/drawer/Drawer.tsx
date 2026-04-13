@@ -23,6 +23,7 @@ const DrawerMenu: FC<DrawerMenuProps> = ({ open, onClose }) => {
                     width: cfg.width,
                     fontFamily: "var(--app-font, 'Roboto', sans-serif)",
                     p: cfg.padding,
+                    backgroundColor: "var(--background-dark)",
                 },
             }}
         >

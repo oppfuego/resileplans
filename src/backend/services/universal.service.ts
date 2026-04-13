@@ -6,10 +6,24 @@ import OpenAI from "openai";
 import { ENV } from "../config/env";
 import mongoose from "mongoose";
 import { emailService } from "./email.service";
+import {
+    generateReviewedReleaseAt,
+    resolveUniversalOrderStatus,
+    sanitizeUniversalOrderForClient,
+} from "@/utils/universalOrderAvailability";
 
 const openai = new OpenAI({ apiKey: ENV.OPENAI_API_KEY });
 
-function buildPrompt(body: any): string {
+type UniversalOrderPayload = {
+    category: string;
+    fields: Record<string, unknown>;
+    planType: "default" | "reviewed" | "instant";
+    language?: string;
+    extras?: string[];
+    totalTokens: number;
+};
+
+function buildPrompt(body: UniversalOrderPayload): string {
     const { category, fields, planType } = body;
     const jsonData = JSON.stringify(fields, null, 2);
     const languageNote = body.language
@@ -122,7 +136,7 @@ ${languageNote}
 }
 
 /** 🧩 Extra section prompt builder */
-function buildExtraPrompt(extra: string, category: string, fields: any, language?: string): string {
+function buildExtraPrompt(extra: string, category: string, fields: Record<string, unknown>, language?: string): string {
     const context = JSON.stringify(fields, null, 2);
     const langNote = language ? `Write in ${language}.` : "";
 
@@ -167,23 +181,25 @@ function buildExtraPrompt(extra: string, category: string, fields: any, language
 
 export const universalService = {
     /** create order */
-    async createOrder(userId: string, email: string, body: any) {
+    async createOrder(userId: string, email: string, body: unknown) {
         await connectDB();
 
         if (!body || typeof body !== "object") throw new Error("Invalid request body");
-        if (!body.category) throw new Error("Missing category");
-        if (!body.fields || typeof body.fields !== "object") throw new Error("Missing fields");
-        if (!body.totalTokens || isNaN(body.totalTokens)) throw new Error("Invalid totalTokens value");
+        const payload = body as Partial<UniversalOrderPayload>;
 
-        if (body.planType === "instant") body.planType = "default";
-        if (!["default", "reviewed"].includes(body.planType))
+        if (!payload.category) throw new Error("Missing category");
+        if (!payload.fields || typeof payload.fields !== "object") throw new Error("Missing fields");
+        if (!payload.totalTokens || Number.isNaN(Number(payload.totalTokens))) throw new Error("Invalid totalTokens value");
+
+        if (payload.planType === "instant") payload.planType = "default";
+        if (!payload.planType || !["default", "reviewed"].includes(payload.planType))
             throw new Error("Invalid planType (must be 'default' or 'reviewed')");
 
         const user = await User.findById(userId);
         if (!user) throw new Error("User not found");
 
-        const languageCost = body.language && body.language !== "English" ? 5 : 0;
-        const totalCost = Number(body.totalTokens) + languageCost;
+        const languageCost = payload.language && payload.language !== "English" ? 5 : 0;
+        const totalCost = Number(payload.totalTokens) + languageCost;
 
         if (user.tokens < totalCost)
             throw new Error(`Insufficient tokens (have ${user.tokens}, need ${totalCost})`);
@@ -194,7 +210,7 @@ export const universalService = {
         await transactionService.record(user._id, email, totalCost, "spend", user.tokens);
 
         // main generation
-        const mainPrompt = buildPrompt(body);
+        const mainPrompt = buildPrompt(payload as UniversalOrderPayload);
         let mainText = "";
         try {
             const mainRes = await openai.chat.completions.create({
@@ -208,16 +224,16 @@ export const universalService = {
                 ],
             });
             mainText = mainRes.choices?.[0]?.message?.content?.trim() || "";
-        } catch (err: any) {
+        } catch {
             throw new Error("AI generation failed, please retry later");
         }
 
         // extras generation
         const extrasData: Record<string, string> = {};
-        if (Array.isArray(body.extras) && body.extras.length > 0) {
-            for (const extra of body.extras) {
+        if (Array.isArray(payload.extras) && payload.extras.length > 0) {
+            for (const extra of payload.extras) {
                 try {
-                    const extraPrompt = buildExtraPrompt(extra, body.category, body.fields, body.language);
+                    const extraPrompt = buildExtraPrompt(extra, payload.category, payload.fields, payload.language);
                     const extraRes = await openai.chat.completions.create({
                         model: "gpt-4o-mini",
                         messages: [{ role: "user", content: extraPrompt }],
@@ -227,22 +243,25 @@ export const universalService = {
             }
         }
 
-        const readyAt =
-            body.planType === "reviewed" ? new Date(Date.now() + 24 * 60 * 60 * 1000) : new Date();
+        const createdAt = new Date();
+        const reviewReleaseAt = payload.planType === "reviewed" ? generateReviewedReleaseAt(createdAt) : undefined;
+        const readyAt = reviewReleaseAt || createdAt;
 
         const orderDoc = {
             userId: new mongoose.Types.ObjectId(userId),
             email,
-            category: body.category,
-            fields: body.fields,
-            planType: body.planType,
-            extras: body.extras || [],
-            totalTokens: Number(body.totalTokens) + (languageCost || 0),
-            language: body.language || "English",
+            category: payload.category,
+            fields: payload.fields,
+            planType: payload.planType,
+            extras: payload.extras || [],
+            totalTokens: Number(payload.totalTokens) + (languageCost || 0),
+            language: payload.language || "English",
             response: mainText,
             extrasData,
-            status: body.planType === "reviewed" ? "pending" : "ready",
+            status: payload.planType === "reviewed" ? "in_review" : "ready",
             readyAt,
+            reviewReleaseAt,
+            createdAt,
         };
 
         const order = await UniversalOrder.create(orderDoc);
@@ -259,11 +278,11 @@ export const universalService = {
                 summary:
                     plainOrder.status === "ready"
                         ? "Your order has been completed successfully and is now available in your workspace."
-                        : "Your order has been confirmed and is now pending review.",
+                        : "Your order has been received and is being reviewed by a specialist. It will unlock later in your workspace.",
                 details: [
-                    { label: "Category", value: body.category },
-                    { label: "Plan type", value: body.planType },
-                    { label: "Extras", value: Array.isArray(body.extras) && body.extras.length ? body.extras.join(", ") : "None" },
+                    { label: "Category", value: payload.category },
+                    { label: "Plan type", value: payload.planType },
+                    { label: "Extras", value: Array.isArray(payload.extras) && payload.extras.length ? payload.extras.join(", ") : "None" },
                 ],
             });
         } catch (error) {
@@ -275,7 +294,7 @@ export const universalService = {
             });
         }
 
-        return plainOrder;
+        return sanitizeUniversalOrderForClient(plainOrder);
     },
 
     async getOrders(userId: string) {
@@ -284,17 +303,39 @@ export const universalService = {
             .sort({ createdAt: -1 })
             .lean<UniversalOrderDocument[]>({ virtuals: true });
 
-        return docs.map((d: any) => {
-            if (d.extrasData instanceof Map) d.extrasData = Object.fromEntries(d.extrasData);
-            return d;
-        });
+        const now = new Date();
+        const updates = docs
+            .map((doc) => {
+                if (doc.extrasData instanceof Map) doc.extrasData = Object.fromEntries(doc.extrasData);
+                const nextStatus = resolveUniversalOrderStatus(doc, now);
+                if (doc.status === nextStatus) return null;
+                return {
+                    updateOne: {
+                        filter: { _id: doc._id },
+                        update: { $set: { status: nextStatus } },
+                    },
+                };
+            })
+            .filter(Boolean);
+
+        if (updates.length) await UniversalOrder.bulkWrite(updates);
+
+        return docs.map((doc) => sanitizeUniversalOrderForClient(doc, now));
     },
 
     async getOrderById(userId: string, orderId: string) {
         await connectDB();
         const doc = await UniversalOrder.findOne({ _id: orderId, userId }).lean<UniversalOrderDocument>({ virtuals: true });
         if (!doc) return null;
-        if (doc.extrasData instanceof Map) (doc as any).extrasData = Object.fromEntries(doc.extrasData);
-        return doc;
+        if (doc.extrasData instanceof Map) doc.extrasData = Object.fromEntries(doc.extrasData);
+
+        const now = new Date();
+        const nextStatus = resolveUniversalOrderStatus(doc, now);
+        if (doc.status !== nextStatus) {
+            await UniversalOrder.updateOne({ _id: orderId, userId }, { $set: { status: nextStatus } });
+            doc.status = nextStatus;
+        }
+
+        return sanitizeUniversalOrderForClient(doc, now);
     },
 };

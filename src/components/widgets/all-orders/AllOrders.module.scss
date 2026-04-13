@@ -22,6 +22,12 @@
   }
 }
 
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 /* 🟢 Сітка карток */
 .ordersGrid {
   display: grid;
@@ -145,6 +151,17 @@
   }
 }
 
+.downloadBtnLocked {
+  cursor: not-allowed;
+  opacity: 0.55;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-secondary);
+    transform: none;
+  }
+}
+
 /* 🟢 Порожній стан */
 .emptyState {
   text-align: center;
@@ -165,4 +182,42 @@
   p {
     color: var(--text-secondary);
   }
+}
+
+.extraInfo {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.statusBlock {
+  margin-top: 0.35rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.statusTitle {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.statusText {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.statusEta {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.statusHint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }

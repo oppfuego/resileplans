@@ -5,7 +5,7 @@ export interface UniversalOrderDocument extends Document {
     email: string;
 
     category: string; // e.g. "training", "cv", "marketing"
-    fields: Record<string, any>;
+    fields: Record<string, unknown>;
     extras: string[];
     totalTokens: number;
     planType: "default" | "reviewed";
@@ -14,8 +14,9 @@ export interface UniversalOrderDocument extends Document {
     response: string;
     extrasData: Record<string, string>;
 
-    status: "pending" | "ready";
+    status: "pending" | "paid" | "in_review" | "ready";
     readyAt: Date;
+    reviewReleaseAt?: Date;
     createdAt: Date;
 }
 
@@ -36,8 +37,9 @@ const universalOrderSchema = new Schema<UniversalOrderDocument>(
         response: { type: String, default: "" },
         extrasData: { type: Map, of: String, default: {} },
 
-        status: { type: String, enum: ["pending", "ready"], default: "ready" },
+        status: { type: String, enum: ["pending", "paid", "in_review", "ready"], default: "ready" },
         readyAt: { type: Date },
+        reviewReleaseAt: { type: Date },
         createdAt: { type: Date, default: Date.now },
     },
     { strict: false }
